@@ -227,11 +227,12 @@ app.config(function($stateProvider, $urlRouterProvider){
                     return FeatureService.getRefArray();
                 }
             },
-            controller:function($scope,$state,f,project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
+            controller:function($scope,$state,$stateParams,f,project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
                 $scope.project=project;
                 $scope.activityList= f.copy(activityListRef);
                 $scope.activityDataList= [];
-                $scope.productList=[];
+                $scope.projectActivity= f.copy(activityDataListRef);
+                $scope.productDataList=[];
                 //prepare activities
                 var selectedIds= _.pluck(activityDataListRef,"activityId");
                 var productIds=[];
@@ -247,17 +248,20 @@ app.config(function($stateProvider, $urlRouterProvider){
                 var productList= f.extend(productIds,productListRef);
                 var productDataProductIds= _.pluck(productDataListRef,"productId");
                 _.each(productList,function(product){
-                    if(_.contains(productDataProductIds,product.$id)){
-                        $scope.productList.push(product);
-                    }
-                    else{
-                        var tmp={};
+                    if(!_.contains(productDataProductIds,product.$id)){
+                        var tmp={name:product.name};
                         tmp.productId=product.$id;
                         f.add(productDataListRef,tmp);
-                        $scope.productList.push(product);
                     }
                 });
-
+                _.each(productDataListRef,function(productData){
+                    if(!_.contains(productIds,productData.productId)){
+                        productDataListRef.$remove(productData);
+                    }
+                    else{
+                        $scope.productDataList.push(f.copy(productData));
+                    }
+                });
                 $scope.selectActivity=function(item){
                     $scope.activityDataList.push(item);
                     item.select=true;
@@ -271,54 +275,179 @@ app.config(function($stateProvider, $urlRouterProvider){
                     var activityIds= _.pluck($scope.activityDataList,"$id");
                     var newIds= _.difference(activityIds,activityDataActivityIds);
                     var delIds=_.difference(activityDataActivityIds,activityIds);
-                    _.each(delIds,function(id){
-                        f.removeById(activityDataListRef,id);
+                    _.each(activityDataListRef,function(data){
+                        if(_.contains(delIds,data.activityId)){
+                            f.remove(activityDataListRef,data);
+                        }
                     });
                     _.each(newIds,function(id){
-                        var item={activityId:id};
+                        var item={activityId:id,name:activityListRef.$getRecord(id).name};
                         f.add(activityDataListRef,item);
                     });
+                    //
+                    $state.transitionTo($state.current, $stateParams, {
+                        reload: true,
+                        inherit: false,
+                        notify: true
+                    });
                 };
-//                $scope.featureList= f.copy(featureListRef);
-//                _.each($scope.activityList,function(activity){
-//                    if(_.contains($scope.project.activities,activity.$id)){
-//                        activity.select=true;
-//                    }
-//                });
-                $scope.selectTag=function(item){
+            }
+        })
+        .state('project.selectProcess.chooseActivity', {
+            url: "/chooseActivity",
+            templateUrl: "app/project/chooseActivity.html",
+            resolve: {
+            },
+            controller:function($scope,$state,$stateParams,$q,f,project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
+                $scope.activityList= f.copy(activityListRef);
+                $scope.activityDataList= [];
+                //prepare activities
+                var selectedIds= _.pluck(activityDataListRef,"activityId");
+                var productIds=[];
+                _.each($scope.activityList,function(activity){
+                    if(_.contains(selectedIds,activity.$id)){
+                        productIds=productIds.concat(activity.inputs,activity.outputs);
+                        activity.select=true;
+                        $scope.activityDataList.push(activity);
+                    }
+                });
+                $scope.selectActivity=function(item){
+                    $scope.activityDataList.push(item);
                     item.select=true;
-                    var tagId=item.$id;
-                    _.each($scope.activityList,function(activity){
-                        if(_.contains(activity.tags,tagId)){
-                            activity.select=true;
-                        }
-                    });
                 };
-                $scope.unselectTag=function(item){
+                $scope.unselectActivity=function(item){
+                    $scope.activityDataList= _.without($scope.activityDataList,item);
                     item.select=false;
-                    var tagId=item.$id;
-                    _.each($scope.activityList,function(activity){
-                        if(_.contains(activity.tags,tagId)){
-                            activity.select=false;
-                        }
-                    });
                 };
-
-
-                $scope.save=function(project){
-                    var list=_.filter($scope.activityList,function(activity){
-                        if(activity.select===true){
-                            return true;
-                        }
-                        else{
-                            return false;
+                $scope.saveActivity=function(){
+                    var activityDataActivityIds=_.pluck(activityDataListRef,"activityId");
+                    var activityIds= _.pluck($scope.activityDataList,"$id");
+                    var newIds= _.difference(activityIds,activityDataActivityIds);
+                    var delIds=_.difference(activityDataActivityIds,activityIds);
+                    var promises=[];
+                    _.each(activityDataListRef,function(data){
+                        if(_.contains(delIds,data.activityId)){
+                            promises.push(f.remove(activityDataListRef,data));
                         }
                     });
-                    $scope.project.activities= f.toIds(list);
-                    f.save(projectListRef,project).then(function(){
+                    _.each(newIds,function(id){
+                        var item={
+                            activityId:id,
+                            name:activityListRef.$getRecord(id).name,
+                            inputs:[],
+                            outputs:[]
+                        };
+                        promises.push(f.add(activityDataListRef,item));
+                    });
+                    //
+                    $q.all(promises).then(function(){
                         $state.go("^",{},{reload:true});
                     });
                 };
+            }
+        })
+        .state('project.selectProcess.selectedActivity', {
+            url: "/selectedActivity",
+            templateUrl: "app/project/selectedActivity.html",
+            resolve: {
+            },
+            controller:function($scope,$state,$stateParams,f,project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
+                $scope.activityDataList= f.copy(activityDataListRef);
+            }
+        })
+        .state('project.selectProcess.selectedActivity.selectProduct', {
+            url: "/selectProduct/:activityDataId",
+            templateUrl: "app/project/selectProduct.html",
+            resolve: {
+                activityData:function($stateParams,activityDataListRef){
+                    return activityDataListRef.$getRecord($stateParams.activityDataId);
+                }
+            },
+            controller:function($scope,$state,$stateParams,f,ProductService,project,activityListRef,activityDataListRef,activityData,productListRef,productDataListRef){
+                $scope.activityData= f.copy(activityData);
+                $scope.activityDataList= f.copy(activityDataListRef);
+                //算法：输入时activityData，让用户选择activityData是否采用其对应的activity的inputs和outputs，如果是，则将activityData.inputs指向其对应的activity的inputs对应的productData，如果此productData不存在，则新建productData
+
+                //步骤1：获得activityData所对应的activity的inputs和outputs的product对象
+                var activityId=activityData.activityId;
+                var activity = activityListRef.$getRecord(activityId);
+                var inputIds=activity.inputs;
+                var outputIds=activity.outputs;
+                var inputs = f.extend(inputIds,productListRef);
+                var outputs = f.extend(outputIds,productListRef);
+
+                //步骤2：确定这些product是否已选？确定方法：如果已选，则activityData.input的id是某个productData的id，且此productData指向的product，是次activity.inputs指向的product
+                //如果是已选，则product.select=true
+                _.each(inputs,function(input){
+                    activityData.inputs&&activityData.inputs.forEach(function(dataInputId){
+                        var dataInput=productDataListRef.$getRecord(dataInputId);
+                        if(dataInput&&dataInput.productId==input.$id){
+                            input.select=true;
+                            input.productDataId=dataInput.$id;
+                        }
+                    });
+                });
+                _.each(outputs,function(output){
+                    activityData.outputs && activityData.outputs.forEach(function(dataOutputId){
+                        var dataOutput=productDataListRef.$getRecord(dataOutputId);
+                        if(dataOutput&&dataOutput.productId==output.$id){
+                            output.select=true;
+                            output.productDataId=dataOutput.$id;
+                        }
+                    });
+                });
+                $scope.inputs=inputs;
+                $scope.outputs=outputs;
+                $scope.selectInput=function(item){
+                    //步骤3：当选择某个product，首先检查数据库是否存在对应productData
+                    var theProductData;
+                    _.each(productDataListRef,function(productData){
+                        if(productData.productId==item.$id){
+                            theProductData=productData;
+                        }
+                    });
+                    //步骤4：如果不存在，则先创建相应的productData，得到新创建的id
+                    if(_.isEmpty(theProductData)){
+                        f.add(productDataListRef,ProductService.createProductData(item)).then(function(ref){
+                            var id=ref.name();
+                            if(_.isEmpty(activityData.inputs)){
+                                activityData.inputs=[];
+                            }
+                            activityData.inputs.push(id);
+                            activityDataListRef.$save(activityData).then(function(){
+                                $state.transitionTo($state.current, $stateParams, {
+                                    reload: true,
+                                    inherit: false,
+                                    notify: true
+                                });
+                            });
+                        });
+                    }
+                    else{
+                        if(_.isEmpty(activityData.inputs)){
+                            activityData.inputs=[];
+                        }
+                        activityData.inputs.push(theProductData.$id);
+                        activityDataListRef.$save(activityData).then(function(){
+                            $state.transitionTo($state.current, $stateParams, {
+                                reload: true,
+                                inherit: false,
+                                notify: true
+                            });
+                        });
+                    }
+                };
+                $scope.unselectInput=function(item){
+                    var refId=item.productDataId;
+                    activityData.inputs= _.without(activityData.inputs,refId);
+                    activityDataListRef.$save(activityData).then(function(){
+                        $state.transitionTo($state.current, $stateParams, {
+                            reload: true,
+                            inherit: false,
+                            notify: true
+                        });
+                    });
+                }
             }
         })
         .state('project.edit', {

@@ -337,6 +337,13 @@ app.factory('ProductService', function(f,$q) {
                 }
             });
             return null;
+        },
+        createProductData:function(product){
+            var tmp={};
+            tmp.productId=product.$id;
+            tmp.name=product.name;
+            //TODO
+            return tmp;
         }
     };
     return service;

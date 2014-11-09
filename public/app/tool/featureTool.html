@@ -23,13 +23,17 @@
                     <th>Tool Name</th>
                     <th>Belong Feature</th>
                     <th>Description</th>
-                    <th>Delete</th>
+                    <th>Properties</th>
+                    <th>Action</th>
                 </tr>
                 <tr ng-repeat="item in featureToolList">
                     <td>{{item.name}}</td>
                     <td>{{item.feature.name}}</td>
                     <td>{{item.description}}</td>
-                    <td><button class="btn btn-danger" ng-click="remove(item)">Del</button></td>
+                    <td>
+                        <button class="btn btn-default btn-xs" ng-repeat="button in item.inputs" disabled="disabled">{{button.property}}::{{button.type}}</button>
+                    </td>
+                    <td><button class="btn btn-danger" ng-click="remove(item)">Delete</button></td>
                 </tr>
             </table>
             <button class="btn btn-success" ui-sref="tool.feature.create">Add</button>

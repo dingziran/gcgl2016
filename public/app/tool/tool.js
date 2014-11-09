@@ -47,8 +47,12 @@ app.config(function($stateProvider, $urlRouterProvider){
             url: "/create",
             templateUrl: "app/tool/createFeatureTool.html",
             resolve:{
+                types:function(EnumService){
+                    return EnumService.getProductTypes();
+                }
             },
-            controller:function($scope,$state,f,featureToolListRef,featureListRef){
+            controller:function($scope,$state,f,featureToolListRef,featureListRef,types){
+                $scope.types=types;
                 $scope.tool={};
                 $scope.featureList= f.copy(featureListRef);
                 $scope.addInput=function(item){
@@ -58,8 +62,8 @@ app.config(function($stateProvider, $urlRouterProvider){
                     item.inputs.push({});
                 };
                 $scope.removeInput=function(item){
-                    $scope.tool.inputs=$scope.tool.inputs.filter(function(input){
-                        return input===item;
+                    $scope.tool.inputs= _.filter($scope.tool.inputs,function(input){
+                        return !input===item;
                     });
                 };
                 $scope.add=function(item){

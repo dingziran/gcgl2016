@@ -1,0 +1,24 @@
+<div class="row" >
+    <div class="col-lg-12" ui-view>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                Selected Activities
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>Activity Name</th>
+                        <th>Action</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr ng-repeat="item in activityDataList">
+                        <td>{{item.name}}</td>
+                        <td><button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectProduct({activityDataId:item.$id})">Select Inputs/Outputs</button></td>
+                        <td><button class="btn btn-primary">Tailor My Features</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
