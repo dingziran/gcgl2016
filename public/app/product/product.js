@@ -342,9 +342,17 @@ app.factory('ProductService', function(f,$q) {
             var tmp={};
             tmp.productId=product.$id;
             tmp.name=product.name;
+            tmp.type=product.type;
             //TODO
             return tmp;
         }
+//        refreshProductData:function(old,product){
+//            old.productId=product.$id;
+//            old.name=product.name;
+//            old.type=product.type;
+//            //TODO
+//            return old;
+//        }
     };
     return service;
 });

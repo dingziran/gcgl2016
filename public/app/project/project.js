@@ -227,70 +227,8 @@ app.config(function($stateProvider, $urlRouterProvider){
                     return FeatureService.getRefArray();
                 }
             },
-            controller:function($scope,$state,$stateParams,f,project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
+            controller:function($scope,$state,$stateParams,project){
                 $scope.project=project;
-                $scope.activityList= f.copy(activityListRef);
-                $scope.activityDataList= [];
-                $scope.projectActivity= f.copy(activityDataListRef);
-                $scope.productDataList=[];
-                //prepare activities
-                var selectedIds= _.pluck(activityDataListRef,"activityId");
-                var productIds=[];
-                _.each($scope.activityList,function(activity){
-                    if(_.contains(selectedIds,activity.$id)){
-                        productIds=productIds.concat(activity.inputs,activity.outputs);
-                        activity.select=true;
-                        $scope.activityDataList.push(activity);
-                    }
-                });
-                //prepare products
-                productIds= _.uniq(_.compact(productIds));
-                var productList= f.extend(productIds,productListRef);
-                var productDataProductIds= _.pluck(productDataListRef,"productId");
-                _.each(productList,function(product){
-                    if(!_.contains(productDataProductIds,product.$id)){
-                        var tmp={name:product.name};
-                        tmp.productId=product.$id;
-                        f.add(productDataListRef,tmp);
-                    }
-                });
-                _.each(productDataListRef,function(productData){
-                    if(!_.contains(productIds,productData.productId)){
-                        productDataListRef.$remove(productData);
-                    }
-                    else{
-                        $scope.productDataList.push(f.copy(productData));
-                    }
-                });
-                $scope.selectActivity=function(item){
-                    $scope.activityDataList.push(item);
-                    item.select=true;
-                };
-                $scope.unselectActivity=function(item){
-                    $scope.activityDataList= _.without($scope.activityDataList,item);
-                    item.select=false;
-                };
-                $scope.saveActivity=function(){
-                    var activityDataActivityIds=_.pluck(activityDataListRef,"activityId");
-                    var activityIds= _.pluck($scope.activityDataList,"$id");
-                    var newIds= _.difference(activityIds,activityDataActivityIds);
-                    var delIds=_.difference(activityDataActivityIds,activityIds);
-                    _.each(activityDataListRef,function(data){
-                        if(_.contains(delIds,data.activityId)){
-                            f.remove(activityDataListRef,data);
-                        }
-                    });
-                    _.each(newIds,function(id){
-                        var item={activityId:id,name:activityListRef.$getRecord(id).name};
-                        f.add(activityDataListRef,item);
-                    });
-                    //
-                    $state.transitionTo($state.current, $stateParams, {
-                        reload: true,
-                        inherit: false,
-                        notify: true
-                    });
-                };
             }
         })
         .state('project.selectProcess.chooseActivity', {
@@ -298,13 +236,15 @@ app.config(function($stateProvider, $urlRouterProvider){
             templateUrl: "app/project/chooseActivity.html",
             resolve: {
             },
-            controller:function($scope,$state,$stateParams,$q,f,project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
+            controller:function($scope,$state,$stateParams,$q,f,ActivityService,
+                                project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
                 $scope.activityList= f.copy(activityListRef);
                 $scope.activityDataList= [];
                 //prepare activities
                 var selectedIds= _.pluck(activityDataListRef,"activityId");
                 var productIds=[];
                 _.each($scope.activityList,function(activity){
+                    activity.tags= f.arrayToString(f.extend(activity.tags,tagListRef),'name');
                     if(_.contains(selectedIds,activity.$id)){
                         productIds=productIds.concat(activity.inputs,activity.outputs);
                         activity.select=true;
@@ -331,12 +271,8 @@ app.config(function($stateProvider, $urlRouterProvider){
                         }
                     });
                     _.each(newIds,function(id){
-                        var item={
-                            activityId:id,
-                            name:activityListRef.$getRecord(id).name,
-                            inputs:[],
-                            outputs:[]
-                        };
+                        var act=activityListRef.$getRecord(id);
+                        var item=ActivityService.createActivityData(act);
                         promises.push(f.add(activityDataListRef,item));
                     });
                     //
@@ -437,6 +373,45 @@ app.config(function($stateProvider, $urlRouterProvider){
                         });
                     }
                 };
+                $scope.selectOutput=function(item){
+                    //步骤3：当选择某个product，首先检查数据库是否存在对应productData
+                    var theProductData;
+                    _.each(productDataListRef,function(productData){
+                        if(productData.productId==item.$id){
+                            theProductData=productData;
+                        }
+                    });
+                    //步骤4：如果不存在，则先创建相应的productData，得到新创建的id
+                    if(_.isEmpty(theProductData)){
+                        f.add(productDataListRef,ProductService.createProductData(item)).then(function(ref){
+                            var id=ref.name();
+                            if(_.isEmpty(activityData.outputs)){
+                                activityData.outputs=[];
+                            }
+                            activityData.outputs.push(id);
+                            activityDataListRef.$save(activityData).then(function(){
+                                $state.transitionTo($state.current, $stateParams, {
+                                    reload: true,
+                                    inherit: false,
+                                    notify: true
+                                });
+                            });
+                        });
+                    }
+                    else{
+                        if(_.isEmpty(activityData.outputs)){
+                            activityData.outputs=[];
+                        }
+                        activityData.outputs.push(theProductData.$id);
+                        activityDataListRef.$save(activityData).then(function(){
+                            $state.transitionTo($state.current, $stateParams, {
+                                reload: true,
+                                inherit: false,
+                                notify: true
+                            });
+                        });
+                    }
+                };
                 $scope.unselectInput=function(item){
                     var refId=item.productDataId;
                     activityData.inputs= _.without(activityData.inputs,refId);
@@ -447,7 +422,242 @@ app.config(function($stateProvider, $urlRouterProvider){
                             notify: true
                         });
                     });
+                };
+                $scope.unselectOutput=function(item){
+                    var refId=item.productDataId;
+                    activityData.outputs= _.without(activityData.outputs,refId);
+                    activityDataListRef.$save(activityData).then(function(){
+                        $state.transitionTo($state.current, $stateParams, {
+                            reload: true,
+                            inherit: false,
+                            notify: true
+                        });
+                    });
+                };
+            }
+        })
+        .state('project.selectProcess.selectedActivity.selectFeature', {
+            url: "/selectFeature/:activityDataId",
+            templateUrl: "app/project/selectFeature.html",
+            resolve: {
+                activityData:function($stateParams,activityDataListRef){
+                    return activityDataListRef.$getRecord($stateParams.activityDataId);
                 }
+            },
+            controller:function($scope,$state,$stateParams,f,ProductService,project,activityListRef,activityDataListRef,activityData,featureListRef,productListRef,productDataListRef){
+                $scope.activityData= activityData;
+                //1.activity of activityData
+                var activity= f.copy(activityListRef.$getRecord(activityData.activityId));
+                //2.find all features of activity
+                var features= f.extend(activity.features,featureListRef);
+                //3.modify features
+                features=_.filter(features,function(feature){
+                    return !_.contains(_.pluck(activityData.features,"featureId"),feature.$id);
+                });
+                $scope.unSelectFeatures=features;
+                $scope.select=function(feature){
+                    var tmp={};
+                    tmp.featureId=feature.$id;
+                    tmp.name=feature.name;
+                    tmp.description=feature.description;
+                    $scope.unSelectFeatures= _.without($scope.unSelectFeatures,feature);
+                    if(!$scope.activityData.features){
+                        $scope.activityData.features=[];
+                    }
+                    $scope.activityData.features.push(tmp);
+                    activityDataListRef.$save($scope.activityData).then(function(){
+                        $state.transitionTo($state.current, $stateParams, {
+                            reload: true,
+                            inherit: false,
+                            notify: true
+                        });
+                    });
+                };
+                $scope.unselect=function(feature){
+                    $scope.activityData.features=_.without($scope.activityData.features,feature);
+                    activityDataListRef.$save($scope.activityData).then(function(){
+                        $state.transitionTo($state.current, $stateParams, {
+                            reload: true,
+                            inherit: false,
+                            notify: true
+                        });
+                    });
+                }
+            }
+        })
+        .state('project.selectProcess.selectedActivity.selectFeature.selectTool', {
+            url: "/selectTool",
+            templateUrl: "app/project/selectTool.html",
+            resolve: {
+            },
+            controller:function($scope,$state,$stateParams,$modal,f,ProductService,project,activityListRef,activityDataListRef,activityData,featureListRef,productListRef,productDataListRef){
+                $scope.activityData= activityData;
+                if($scope.activityData&&$scope.activityData.features){
+                    _.each($scope.activityData.features,function(feature){
+                        if(feature.tool) {
+                            _.each(feature.tool.inputs, function (input) {
+                                input.product = productDataListRef.$getRecord(input.product);
+                            });
+                            _.each(feature.tool.outputs, function (output) {
+                                output.product = productDataListRef.$getRecord(output.product);
+                            });
+                        }
+                    })
+                }
+
+                $scope.state="selectTool";
+                $scope.selectTool = function (feature) {
+
+                    var modalInstance = $modal.open({
+                        templateUrl: 'app/project/selectTool.tpls.html',
+                        resolve: {
+                            featureToolListRef:function(ToolService){
+                                return ToolService.getRefArray("feature");
+                            }
+                        },
+                        controller:function ($scope, $modalInstance,featureToolListRef) {
+                            $scope.search="";
+                            $scope.items = featureToolListRef;
+                            $scope.selected={};
+
+                            $scope.ok = function () {
+                                $modalInstance.close($scope.selected);
+                            };
+
+                            $scope.cancel = function () {
+                                $modalInstance.dismiss('cancel');
+                            };
+                            $scope.select=function(item){
+                                $scope.selected=item;
+                            };
+                        },
+                        size:'lg'
+                    });
+
+                    modalInstance.result.then(function (selectedItem) {
+                        feature.tool=selectedItem;
+                        activityDataListRef.$save($scope.activityData).then(function(){
+                            $state.transitionTo($state.current, $stateParams, {
+                                reload: true,
+                                inherit: false,
+                                notify: true
+                            });
+                        });
+                    }, function () {
+                        console.log('Modal dismissed at: ' + new Date());
+                    });
+                };
+                $scope.selectInputProduct=function(feature,item){
+                    //1.找到所有已有输入
+                    var inputs= f.extend(activityData.inputs,productDataListRef);
+                    //2.通过类型进行过滤
+                    inputs=_.filter(inputs,function(input){
+                        if(input.type==item.type){
+                            return true;
+                        }
+                    });
+                    var modalInstance = $modal.open({
+                        templateUrl: 'app/project/selectProduct.tpls.html',
+                        resolve: {
+                        },
+                        controller:function ($scope, $modalInstance) {
+                            $scope.search="";
+                            $scope.items = inputs;
+                            $scope.selected={};
+
+                            $scope.ok = function () {
+                                $modalInstance.close($scope.selected);
+                            };
+
+                            $scope.cancel = function () {
+                                $modalInstance.dismiss('cancel');
+                            };
+                            $scope.select=function(item){
+                                $scope.selected=item;
+                            };
+                        },
+                        size:'lg'
+                    });
+
+                    modalInstance.result.then(function (selectedItem) {
+                        item.product=selectedItem;
+                        _.each(feature.tool.inputs, function (input) {
+                            input.product = input.product.$id;
+                        });
+                        _.each(feature.tool.outputs, function (output) {
+                            output.product = output.product.$id;
+                        });
+                        activityDataListRef.$save($scope.activityData).then(function(){
+                            $state.transitionTo($state.current, $stateParams, {
+                                reload: true,
+                                inherit: false,
+                                notify: true
+                            });
+                        });
+                    }, function () {
+                        console.log('Modal dismissed at: ' + new Date());
+                    });
+                };
+                $scope.selectOutputProduct=function(feature,item){
+                    //1.找到所有已有输入
+                    var outputs= f.extend(activityData.outputs,productDataListRef);
+                    //2.通过类型进行过滤
+                    outputs=_.filter(outputs,function(output){
+                        if(output.type==item.type){
+                            return true;
+                        }
+                    });
+                    var modalInstance = $modal.open({
+                        templateUrl: 'app/project/selectProduct.tpls.html',
+                        resolve: {
+                        },
+                        controller:function ($scope, $modalInstance) {
+                            $scope.search="";
+                            $scope.items = outputs;
+                            $scope.selected={};
+
+                            $scope.ok = function () {
+                                $modalInstance.close($scope.selected);
+                            };
+
+                            $scope.cancel = function () {
+                                $modalInstance.dismiss('cancel');
+                            };
+                            $scope.select=function(item){
+                                $scope.selected=item;
+                            };
+                        },
+                        size:'lg'
+                    });
+
+                    modalInstance.result.then(function (selectedItem) {
+                        item.product=selectedItem;
+                        _.each(feature.tool.inputs, function (input) {
+                            input.product = input.product.$id;
+                        });
+                        _.each(feature.tool.outputs, function (output) {
+                            output.product = output.product.$id;
+                        });
+                        activityDataListRef.$save($scope.activityData).then(function(){
+                            $state.transitionTo($state.current, $stateParams, {
+                                reload: true,
+                                inherit: false,
+                                notify: true
+                            });
+                        });
+                    }, function () {
+                        console.log('Modal dismissed at: ' + new Date());
+                    });
+                };
+            }
+        })
+        .state('project.selectProcess.selectedProduct', {
+            url: "/selectedProduct",
+            templateUrl: "app/project/selectedProduct.html",
+            resolve: {
+            },
+            controller:function($scope,$state,$stateParams,f,project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
+                $scope.productDataList= f.copy(productDataListRef);
             }
         })
         .state('project.edit', {

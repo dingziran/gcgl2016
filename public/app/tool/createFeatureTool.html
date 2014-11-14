@@ -50,6 +50,29 @@
                     </table>
                 </div>
             </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Output<button class="btn btn-success" ng-click="addOutput(tool)">Add</button></div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <th>Output Type</th>
+                            <th>Output Property</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr ng-repeat="item in tool.outputs">
+                            <td>
+                                <select ng-model="item.type" ng-options="type as type for type in types">
+                                    <option value="">----</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" ng-model="item.property"/>
+                            </td>
+                            <td><button class="btn btn-danger" ng-click="removeOutput(item)">Remove</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
             <div class="form-group">
                 <label>Description</label>
                 <textarea rows="10" class="form-control" ng-model="tool.description"/>

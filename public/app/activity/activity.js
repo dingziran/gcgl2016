@@ -248,6 +248,12 @@ app.factory('ActivityService', function(f,$q) {
                 activity.outputs= f.arrayToString(f.extend(activity.outputs,productList),"name");
                 return activity;
             });
+        },
+        createActivityData:function(activity){
+            var tmp={};
+            tmp.activityId=activity.$id;
+            tmp.name=activity.name;
+            return tmp;
         }
     };
     return service;

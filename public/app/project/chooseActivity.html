@@ -12,10 +12,12 @@
                             <table class="table">
                                 <tr>
                                     <th>Activity Name</th>
+                                    <th>Activity Tag</th>
                                     <th>Action</th>
                                 </tr>
                                 <tr ng-repeat="item in activityDataList">
                                     <td>{{item.name}}</td>
+                                    <td>{{item.tags}}</td>
                                     <td><button class="btn btn-danger" ng-click="unselectActivity(item)">Unselect</button></td>
                                 </tr>
                             </table>
@@ -26,10 +28,12 @@
                             <table class="table">
                                 <tr>
                                     <th>Activity Name</th>
+                                    <th>Activity Tag</th>
                                     <th>Action</th>
                                 </tr>
                                 <tr ng-repeat="item in activityList" ng-hide="item.select">
                                     <td>{{item.name}}</td>
+                                    <td>{{item.tags}}</td>
                                     <td><button class="btn btn-success" ng-click="selectActivity(item)">Select</button></td>
                                 </tr>
                             </table>

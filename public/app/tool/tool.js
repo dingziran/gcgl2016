@@ -66,6 +66,17 @@ app.config(function($stateProvider, $urlRouterProvider){
                         return !input===item;
                     });
                 };
+                $scope.addOutput=function(item){
+                    if(_.isUndefined(item.outputs)){
+                        item.outputs=[];
+                    }
+                    item.outputs.push({});
+                };
+                $scope.removeOutput=function(item){
+                    $scope.tool.outputs= _.filter($scope.tool.outputs,function(output){
+                        return !output===item;
+                    });
+                };
                 $scope.add=function(item){
                     f.add(featureToolListRef,item).then(function(){
                         $state.go("^",{},{reload:true});
