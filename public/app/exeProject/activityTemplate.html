@@ -3,15 +3,15 @@
     <div class="col-lg-12">
         <p>Features</p>
         <ol>
-            <li  ng-repeat="template in activity.exeTemplates">
+            <li  ng-repeat="feature in activityData.features">
                 <button type="button" class="btn btn-default"
-                        ui-sref="main.project.activity.{{template.url}}">{{template.name}}</button></li>
+                        ui-sref="main.project.activity.{{feature.tool.url}}({featureId:feature.featureId})">{{feature.name}}</button></li>
         </ol>
     </div>
     <div class="col-lg-12">
         <p>Inputs</p>
         <ol>
-            <li ng-repeat="product in activity.inputs">
+            <li ng-repeat="product in activityData.inputs">
                 <button class="btn btn-default" type="button"
                         ui-sref="main.project.activity.{{product.exeTemplate.url}}({productId:product.$id})">{{product.name}}</button></li>
         </ol>
@@ -19,7 +19,7 @@
     <div class="col-lg-12">
         <p>Outputs</p>
         <ol>
-            <li ng-repeat="product in activity.outputs">
+            <li ng-repeat="product in activityData.outputs">
                 <button class="btn btn-default" type="button"
                         ui-sref="main.project.activity.{{product.exeTemplate.url}}({productId:product.$id})">{{product.name}}</button></li>
         </ol>

@@ -9,11 +9,9 @@
                     </th>
                     <th>Actions</th>
                 </tr>
-                <tr ng-repeat="activity in activityList" >
+                <tr ng-repeat="activity in activityDataList" >
                     <td>{{activity.name}}</td>
-                    <td><button type="button" class="btn btn-success btn-xs" ng-click="enterProcess(activity)">
-                            <span class="glyphicon glyphicon-off"></span> Enter
-                        </button>
+                    <td><button type="button" class="btn btn-success" ui-sref="main.project.activity({activityId:activity.$id})">Enter</button>
                     </td>
                 </tr>
             </table>

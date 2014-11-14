@@ -253,6 +253,7 @@ app.factory('ActivityService', function(f,$q) {
             var tmp={};
             tmp.activityId=activity.$id;
             tmp.name=activity.name;
+            tmp.description=activity.description;
             return tmp;
         }
     };

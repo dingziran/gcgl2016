@@ -17,160 +17,33 @@ app.config(function($stateProvider){
             url:"/:projectId",
             templateUrl:"app/exeProject/activityList.html",
             resolve:{
-                activityListRef:function($stateParams,ActivityService){
-                    return ActivityService.getRefArrayExe($stateParams.projectId);
+                activityDataListRef:function($stateParams,ActivityService){
+                    return ActivityService.getActivityDataRef($stateParams.projectId);
+                },
+
+                productDataListRef:function($stateParams,ProductService){
+                    return ProductService.getProductDataRef($stateParams.projectId);
                 }
             },
-            controller:function($scope,$state,$stateParams,f,activityListRef){
-                $scope.activityList= f.copy(activityListRef);
-                $scope.enterProcess=function(item){
-                    $state.go("main.project.activity",{activityId:item.$id});
-                };
+            controller:function($scope,$state,$stateParams,f,activityDataListRef){
+                $scope.activityDataList= f.copy(activityDataListRef);
             }
         })
         .state('main.project.activity',{
             url:"/:activityId",
             templateUrl:"app/exeProject/activityTemplate.html",
             resolve:{
-                productListRef:function($stateParams,ProductService){
-                    return ProductService.getRefArrayExe($stateParams.projectId);
-                },
-                activity:function($stateParams,activityListRef,f){
-                    return f.copy(activityListRef.$getRecord($stateParams.activityId));
-                },
-                activityWithProducts:function(f,activity,productListRef){
-//                    console.log("before extends");
-//                    console.log(activity);
-                    activity.inputs= f.extendProperty(_.pluck(activity.inputs,'id'),productListRef,'id');
-                    activity.outputs= f.extendProperty(_.pluck(activity.outputs,'id'),productListRef,'id');
-//                    console.log('after extends');
-//                    console.log(activity);
-                    return activity;
+                activityData:function($stateParams,activityDataListRef,f){
+                    return f.copy(activityDataListRef.$getRecord($stateParams.activityId));
                 }
             },
-            controller:function($scope,activityWithProducts){
-                $scope.activity= activityWithProducts;
+            controller:function($scope,f,
+                                productDataListRef,activityData){
+                $scope.activityData= f.copy(activityData);
+                $scope.activityData.inputs= f.extend($scope.activityData.inputs,productDataListRef);
+                $scope.activityData.outputs= f.extend($scope.activityData.outputs,productDataListRef);
             }
         })
-//        .state('main.project.activity.input',{
-//            url:"/:productId",
-//            templateUrl:'app/exeProject/productTemplate.html',
-//            resolve:{
-//                product:function($stateParams,productList){
-//                    return productList.$getRecord($stateParams.productId);
-//                }
-//            },
-//            controller:function($scope,$state,f,product,productList){
-//                $scope.url=product.url;
-//                $scope.product=product;
-//                $scope.save=function(item){
-//                    f.save(productList,item).then(function(){
-//                        $state.go('^');
-//                    });
-//                };
-//            }
-//        })
-//        .state('main.project.activity.output',{
-//            url:"/:productId",
-//            templateUrl:'app/exeProject/productTemplate.html',
-//            resolve:{
-//                product:function($stateParams,productList){
-//                    return productList.$getRecord($stateParams.productId);
-//                }
-//            },
-//            controller:function($scope,$state,f,product,productList){
-//                $scope.url=product.url;
-//                $scope.product=product;
-//                $scope.save=function(item){
-//                    f.save(productList,item).then(function(){
-//                        $state.go('^');
-//                    });
-//                };
-//            }
-//        })
-//                        currentProcesses:function(ExeProjectService,f,projects){
-////                            console.log("ExeProjectService.getCurrentProjectId()");
-////                            console.log(ExeProjectService.getCurrentProjectId());
-//                            var project=angular.copy(projects[ExeProjectService.getCurrentProjectId()]);
-//                            if(_.isUndefined(project)){
-//                                return project;
-//                            }
-////                            console.log('0.9');
-////                            console.log(project.selected);
-////                            console.log(project.processData);
-//                            var subProcess= f.extend(project.selected,project.processData);
-////                            console.log("1.Sub Process");
-////                            console.log(subProcess);
-//                            subProcess=_.map(project.processData,function(processContent,id){
-//                                processContent.id=id;
-//                                console.log('processContent');
-//                                console.log(processContent);
-//                                return ExeProjectService.withInputOutputAndEmbed(processContent,project.productData,project.processData);
-//                            });
-//                            console.log("This processes must have list inside.");
-//                            console.log(subProcess);
-//                            return subProcess;
-//                        }
-//                    },
-//                    controller:function($scope,$stateParams,$state,f,ExeProjectService,projects,currentProcesses){
-//                        $scope.projects=projects;
-//                        console.log("projects");
-//                        console.log(projects);
-//                        $scope.selectId=ExeProjectService.getCurrentProjectId();
-//                        $scope.myData = [];
-//                        if(!_.isUndefined(currentProcesses)){
-//                            $scope.myData=currentProcesses;
-//                        }
-//                        $scope.mySelections=[];
-//                        console.log("$scope.myData");
-//                        console.log($scope.myData);
-//                        $scope.gridOptions = {
-//                            data: 'myData',
-//                            columnDefs: [{field:'name', displayName:'Name'},
-//                                {field:'input.name', displayName:'Input'},
-//                                {field:'input.status',displayName:'Input Status'},
-//                                {field:'output.name', displayName:'Output'},
-//                                {field:'output.status', displayName:'Output Status'},
-//                                {field:'status', displayName:'Process Status'}
-//                            ],
-//                            selectedItems: $scope.mySelections,
-//                            multiSelect: false
-//                        };
-//                        $scope.select=function(){
-//                            console.log("$scope.selectId");
-//                            console.log($scope.selectId);
-//                            ExeProjectService.setCurrentProjectId($scope.selectId);
-//
-//                            $state.transitionTo($state.current, $stateParams, {
-//                                reload: true,
-//                                inherit: false,
-//                                notify: true
-//                            });
-//                        };
-//                        $scope.remove=function(){
-//                            ExeProjectService.remove($scope.selectId);
-//                            $state.transitionTo($state.current, $stateParams, {
-//                                reload: true,
-//                                inherit: false,
-//                                notify: true
-//                            });
-//
-//                        };
-//                        $scope.enterProcess=function(){
-//                            if($scope.mySelections.length===0){
-//                                return;
-//                            }
-//                            if($scope.mySelections[0].status==="finish"){
-//                                return;
-//                            }
-//                            console.log('$scope.mySelections');
-//                            console.log($scope.mySelections);
-//                            $state.go("main.process",{id:$scope.mySelections[0].id,pId:$scope.selectId});
-//                        };
-//                    }
-//                }
-//            }
-//        })
         .state('main.process',{
             url:"/process/:pId/:id",
             views:{
