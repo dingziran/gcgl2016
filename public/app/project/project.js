@@ -656,8 +656,70 @@ app.config(function($stateProvider, $urlRouterProvider){
             templateUrl: "app/project/selectedProduct.html",
             resolve: {
             },
-            controller:function($scope,$state,$stateParams,f,project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
+            controller:function($scope,$state,$stateParams,f,ProductService,
+                project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
                 $scope.productDataList= f.copy(productDataListRef);
+                $scope.refresh=function(product){
+                    var theProduct=productDataListRef.$getRecord(product.$id);
+                    _.extend(theProduct,ProductService.createProductData(productListRef.$getRecord(theProduct.productId)));
+                    productDataListRef.$save(theProduct).then(function(){
+                        $state.transitionTo($state.current, $stateParams, {
+                            reload: true,
+                            inherit: false,
+                            notify: true
+                        });
+                    });
+                }
+            }
+        })
+        .state('project.selectProcess.selectedProduct.selectTool', {
+            url: "/select",
+            templateUrl: "app/project/selectProductTool.html",
+            resolve: {
+            },
+            controller:function($scope,$state,$stateParams,$modal,f,
+                project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
+                $scope.productDataList= productDataListRef;
+                $scope.selectTool=function(product){
+                    var modalInstance = $modal.open({
+                        templateUrl: 'app/project/selectProduct.tpls.html',
+                        resolve: {
+                            productToolListRef:function(ToolService){
+                                return ToolService.getRefArray("product");
+                            }
+                        },
+                        controller:function ($scope, $modalInstance,productToolListRef) {
+                            $scope.search="";
+                            $scope.items = productToolListRef;
+                            $scope.selected={};
+
+                            $scope.ok = function () {
+                                $modalInstance.close($scope.selected);
+                            };
+
+                            $scope.cancel = function () {
+                                $modalInstance.dismiss('cancel');
+                            };
+                            $scope.select=function(item){
+                                $scope.selected=item;
+                            };
+                        },
+                        size:'lg'
+                    });
+
+                    modalInstance.result.then(function (selectedItem) {
+                        product.tool=selectedItem;
+                        productDataListRef.$save(product).then(function(){
+                            $state.transitionTo($state.current, $stateParams, {
+                                reload: true,
+                                inherit: false,
+                                notify: true
+                            });
+                        });
+                    }, function () {
+                        console.log('Modal dismissed at: ' + new Date());
+                    });
+                };
             }
         })
         .state('project.edit', {

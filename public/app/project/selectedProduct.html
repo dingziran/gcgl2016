@@ -2,17 +2,21 @@
     <div class="col-lg-12" ui-view>
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Selected Products
+                Selected Products <button class="btn btn-success" ui-sref="project.selectProcess.selectedProduct.selectTool">Select Tool</button>
             </div>
             <div class="panel-body">
                 <table class="table">
                     <tr>
                         <th>Name</th>
                         <th>Type</th>
+                        <th>Creation Time</th>
+                        <th>Action</th>
                     </tr>
                     <tr ng-repeat="item in productDataList">
                         <td>{{item.name}}</td>
                         <td>{{item.type}}</td>
+                        <td>{{item.creationTimeStamp}}</td>
+                        <td><button class="btn btn-danger" ng-click="refresh(item)">Refresh Data</button></td>
                     </tr>
                 </table>
                 <pre>{{productDataList|json}}</pre>

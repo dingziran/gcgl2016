@@ -343,6 +343,8 @@ app.factory('ProductService', function(f,$q) {
             tmp.productId=product.$id;
             tmp.name=product.name;
             tmp.type=product.type;
+            tmp.description=product.description;
+            tmp.creationTimeStamp=new Date().toString();
             //TODO
             return tmp;
         }

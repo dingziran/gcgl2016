@@ -5,11 +5,11 @@
 var app=angular.module("gcgl2016.template");
 app.config(function($stateProvider) {
     $stateProvider
-        .state('main.project.activity.productDefault', {
+        .state('main.project.activity.productDefault2', {
             url: "/productDefault/:productId",
             templateUrl: "app/template/productTemplate/productDefault.html",
             resolve:{
-                product:function($stateParams,productListRef){
+                productData:function($stateParams,productListRef){
                     return productListRef.$getRecord($stateParams.productId);
                 }
             },

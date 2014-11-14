@@ -254,6 +254,7 @@ app.factory('ActivityService', function(f,$q) {
             tmp.activityId=activity.$id;
             tmp.name=activity.name;
             tmp.description=activity.description;
+            tmp.creationTimeStamp=new Date().toString();
             return tmp;
         }
     };

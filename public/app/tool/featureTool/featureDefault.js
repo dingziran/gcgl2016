@@ -5,7 +5,7 @@ var app=angular.module("gcgl2016.template");
 app.config(function($stateProvider) {
     $stateProvider
         .state('main.project.activity.featureDefault', {
-            url: "/default/:featureId",
+            url: "/featureDefault/:featureId",
             templateUrl: "app/tool/featureTool/featureDefault.html",
             resolve:{
                 feature:function($stateParams,activityData){
