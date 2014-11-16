@@ -21,7 +21,9 @@ var app=angular.module("gcgl2016",[
     'gcgl2016.tag',
     'gcgl2016.feature',
     "gcgl2016.enum",
-    'angularFileUpload'
+    'angularFileUpload',
+    'kendo.directives',
+    'ngSanitize'
 ]);
 app.config(function($stateProvider, $urlRouterProvider){
     // For any unmatched url, redirect to /state1

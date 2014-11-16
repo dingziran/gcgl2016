@@ -8,12 +8,14 @@
                 <table class="table">
                     <tr>
                         <th>Activity Name</th>
+                        <th>Creation Time</th>
                         <th>Action</th>
                         <th></th>
                         <th></th>
                     </tr>
                     <tr ng-repeat="item in activityDataList">
                         <td>{{item.name}}</td>
+                        <td>{{item.creationTimeStamp}}</td>
                         <td><button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectProduct({activityDataId:item.$id})">Select Inputs/Outputs</button></td>
                         <td><button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectFeature({activityDataId:item.$id})">Select Features</button></td>
                     </tr>

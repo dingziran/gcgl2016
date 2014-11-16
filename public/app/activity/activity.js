@@ -67,7 +67,8 @@ app.config(function($stateProvider, $urlRouterProvider){
             templateUrl:"app/activity/createActivity.html",
             resolve:{
             },
-            controller:function($scope,$state,$modal,featureListRef,tagListRef,productListRef,activityListRef,f){
+            controller:function($scope,$state,$modal,$sce,
+                                featureListRef,tagListRef,productListRef,activityListRef,f){
                 $scope.activity={};
                 $scope.featureListRef=featureListRef;
                 $scope.tagListRef=tagListRef;
@@ -77,6 +78,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                     $scope.activity.fts= _.map($scope.activity.features,function(featureId){
                         return {feature:featureId};
                     });
+//                    $scope.activity.description=$sce.trustAsHtml($scope.activity.description);
                     $scope.activity.tags= f.toIds($scope.activity.tags);
                     $scope.activity.inputs= f.toIds($scope.activity.inputs);
                     $scope.activity.outputs= f.toIds($scope.activity.outputs);
@@ -139,7 +141,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                     return activityListRef.$getRecord($stateParams.id);
                 }
             },
-            controller:function($scope,$state,$modal,ActivityService,featureListRef,tagListRef,activityListRef,productListRef,f,activity) {
+            controller:function($scope,$state,$modal,$sce,
+                                ActivityService,f,
+                                featureListRef,tagListRef,activityListRef,productListRef,activity) {
                 $scope.activity = f.copy(activity);
                 $scope.featureListRef=featureListRef;
                 $scope.tagListRef=tagListRef;

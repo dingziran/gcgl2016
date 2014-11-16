@@ -1,9 +1,13 @@
 <div class="row">
     <div class="col-lg-12">
-        <h1>{{activityData.name}}</h1>
-        <p>活动描述: {{activityData.description}}</p>
-        <br/>
-        <h3>{{productData.name}}</h3>
-        <p>产品描述: {{productData.description}}</p>
+        <div class="well">
+            <h1>{{activityData.name}}</h1>
+            <h3>活动描述:</h3>
+            <div ng-bind-html="activityData.description"></div>
+            <br/>
+            <h2>{{productData.name}}</h2>
+            <h4>产品描述:</h4>
+            <div ng-bind-html="productData.description"></div>
+        </div>
     </div>
 </div>

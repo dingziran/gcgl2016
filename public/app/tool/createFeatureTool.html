@@ -75,7 +75,7 @@
             </div>
             <div class="form-group">
                 <label>Description</label>
-                <textarea rows="10" class="form-control" ng-model="tool.description"/>
+                <textarea kendo-editor k-encoded="false" ng-model="tool.description"></textarea>
             </div>
         </form>
         <button class="btn btn-success" ng-click="add(tool)" ng-disabled="form.$invalid">Add Tool</button>

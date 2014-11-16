@@ -16,7 +16,7 @@
                         </tr>
                         <tr ng-repeat="feature in featureList">
                             <td>{{feature.name}}</td>
-                            <td>{{feature.description}}</td>
+                            <td><div ng-bind-html="feature.description"></div></td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-xs" ui-sref="feature.edit({id:feature.$id})">
                                     <span class="glyphicon glyphicon-edit"></span> Edit
