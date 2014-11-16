@@ -84,27 +84,72 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             }
         })
-        .state('tool.feature.select', {
-            url: "/:featureId",
-            templateUrl: "app/tool/selectFeatureTool.html",
+        .state('tool.feature.edit', {
+            url: "/edit/:id",
+            templateUrl: "app/tool/editFeatureTool.html",
             resolve:{
-                feature:function($stateParams,featureListRef){
-                    return featureListRef.$getRecord($stateParams.featureId);
+                types:function(EnumService){
+                    return EnumService.getProductTypes();
+                },
+                tool:function($stateParams,featureToolListRef){
+                    return featureToolListRef.$getRecord($stateParams.id);
                 }
             },
-            controller:function($scope,$state,f,feature,featureListRef,featureToolListRef){
-                $scope.featureToolList= _.filter(f.copy(featureToolListRef),function(tool){
-                    return _.isEmpty(tool.feature)||tool.feature==feature.$id;
-                });
-
-                $scope.select=function(item){
-                    feature.tool=item.$id;
-                    f.save(featureListRef,feature).then(function(){
+            controller:function($scope,$state,f,ToolService,
+                                featureToolListRef,featureListRef,types,tool){
+                $scope.types=types;
+                $scope.tool= f.copy(tool);
+                $scope.featureList= f.copy(featureListRef);
+                $scope.addInput=function(item){
+                    if(_.isUndefined(item.inputs)){
+                        item.inputs=[];
+                    }
+                    item.inputs.push({});
+                };
+                $scope.removeInput=function(item){
+                    $scope.tool.inputs= _.filter($scope.tool.inputs,function(input){
+                        return !input===item;
+                    });
+                };
+                $scope.addOutput=function(item){
+                    if(_.isUndefined(item.outputs)){
+                        item.outputs=[];
+                    }
+                    item.outputs.push({});
+                };
+                $scope.removeOutput=function(item){
+                    $scope.tool.outputs= _.filter($scope.tool.outputs,function(output){
+                        return !output===item;
+                    });
+                };
+                $scope.save=function(item){
+                    ToolService.save(featureToolListRef,tool,item).then(function(){
                         $state.go("^",{},{reload:true});
                     });
                 };
             }
         })
+//        .state('tool.feature.select', {
+//            url: "/:featureId",
+//            templateUrl: "app/tool/selectFeatureTool.html",
+//            resolve:{
+//                feature:function($stateParams,featureListRef){
+//                    return featureListRef.$getRecord($stateParams.featureId);
+//                }
+//            },
+//            controller:function($scope,$state,f,feature,featureListRef,featureToolListRef){
+//                $scope.featureToolList= _.filter(f.copy(featureToolListRef),function(tool){
+//                    return _.isEmpty(tool.feature)||tool.feature==feature.$id;
+//                });
+//
+//                $scope.select=function(item){
+//                    feature.tool=item.$id;
+//                    f.save(featureListRef,feature).then(function(){
+//                        $state.go("^",{},{reload:true});
+//                    });
+//                };
+//            }
+//        })
         .state('tool.product', {
             url: "/product",
             templateUrl: "app/tool/productTool.html",
@@ -151,29 +196,51 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             }
         })
-        .state('tool.product.select', {
-            url: "/:productId",
-            templateUrl: "app/tool/selectProductTool.html",
+        .state('tool.product.edit', {
+            url: "/edit/:id",
+            templateUrl: "app/tool/editProductTool.html",
             resolve:{
-                product:function($stateParams,productListRef){
-                    return productListRef.$getRecord($stateParams.productId);
+                types:function(EnumService){
+                    return EnumService.getProductTypes();
+                },
+                tool:function($stateParams,productToolListRef){
+                    return productToolListRef.$getRecord($stateParams.id);
                 }
             },
-            controller:function($scope,$state,f,productListRef,product,productToolListRef){
-                $scope.productToolList= _.filter(productToolListRef,function(tool){
-                    console.log(tool.type);
-                    console.log(product.type);
-                    return _.isEmpty(tool.type)||tool.type===product.type;
-                });
-
-                $scope.select=function(item){
-                    product.tool= item.$id;
-                    f.save(productListRef,product).then(function(){
+            controller:function($scope,$state,f,ToolService,
+                                tool,types,productToolListRef){
+                $scope.tool= f.copy(tool);
+                $scope.types= types;
+                $scope.save=function(item){
+                    ToolService.save(productToolListRef,tool,item).then(function(){
                         $state.go("^",{},{reload:true});
                     });
                 };
             }
         });
+//        .state('tool.product.select', {
+//            url: "/:productId",
+//            templateUrl: "app/tool/selectProductTool.html",
+//            resolve:{
+//                product:function($stateParams,productListRef){
+//                    return productListRef.$getRecord($stateParams.productId);
+//                }
+//            },
+//            controller:function($scope,$state,f,productListRef,product,productToolListRef){
+//                $scope.productToolList= _.filter(productToolListRef,function(tool){
+//                    console.log(tool.type);
+//                    console.log(product.type);
+//                    return _.isEmpty(tool.type)||tool.type===product.type;
+//                });
+//
+//                $scope.select=function(item){
+//                    product.tool= item.$id;
+//                    f.save(productListRef,product).then(function(){
+//                        $state.go("^",{},{reload:true});
+//                    });
+//                };
+//            }
+//        });
 });
 app.factory('ToolService', function(f,$q) {
     //Public Method
@@ -185,6 +252,14 @@ app.factory('ToolService', function(f,$q) {
             if(type==="product"){
                 return f.ref("/tool/product").$asArray().$loaded();
             }
+        },
+        save:function(refs,oldItem,newItem){
+            if(_.isUndefined(refs)||!refs.hasOwnProperty('$save')){
+                return;
+            }
+            _.extend(oldItem,newItem);
+            oldItem.updateTimeStamp=new Date().toString();
+            return refs.$save(oldItem);
         }
     };
     return service;
