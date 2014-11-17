@@ -8,5 +8,9 @@
     <orderEntry type="library" name="sass-stdlib" level="application" />
     <orderEntry type="library" name="Node.js v0.10.31 Core Modules" level="application" />
   </component>
+  <component name="sonarModuleSettings">
+    <option name="localAnalysisScripName" value="&lt;PROJECT&gt;" />
+    <option name="serverName" value="&lt;PROJECT&gt;" />
+  </component>
 </module>
 
