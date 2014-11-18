@@ -14,103 +14,45 @@ app.config(function($stateProvider) {
                     })[0];
                 }
             },
-            controller: function ($scope,$stateParams,f,
-                                  activityData,feature) {
+            controller: function ($scope,$stateParams,$state,f,
+                                  activityData,feature,productDataListRef,activityDataListRef) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
-                $scope.data=[
-                    {
-                        "id": 1,
-                        "title": "node1",
-                        "nodes": [
-                            {
-                                "id": 11,
-                                "title": "node1.1",
-                                "nodes": [
-                                    {
-                                        "id": 111,
-                                        "title": "node1.1.1",
-                                        "nodes": []
-                                    }
-                                ]
-                            },
-                            {
-                                "id": 12,
-                                "title": "node1.2",
-                                "nodes": []
-                            }
-                        ]
-                    },
-                    {
-                        "id": 2,
-                        "title": "node2",
-                        "nodes": [
-                            {
-                                "id": 21,
-                                "title": "node2.1",
-                                "nodes": []
-                            },
-                            {
-                                "id": 22,
-                                "title": "node2.2",
-                                "nodes": []
-                            }
-                        ]
-                    },
-                    {
-                        "id": 3,
-                        "title": "node3",
-                        "nodes": [
-                            {
-                                "id": 31,
-                                "title": "node3.1",
-                                "nodes": []
-                            }
-                        ]
-                    },
-                    {
-                        "id": 4,
-                        "title": "node4",
-                        "nodes": [
-                            {
-                                "id": 41,
-                                "title": "node4.1",
-                                "nodes": []
-                            }
-                        ]
+                if($scope.feature.tool){
+                    if($scope.feature.tool.inputs){
+                        _.each($scope.feature.tool.inputs,function(input){
+                            input.product=productDataListRef.$getRecord(input.product);
+                        });
                     }
-                ];
+                    if($scope.feature.tool.outputs){
+                        _.each($scope.feature.tool.outputs,function(output){
+                            output.product=productDataListRef.$getRecord(output.product);
+                        });
+                    }
+                }
+                $scope.data=[];
+                if($scope.activityData.simpleDivide){
+                    $scope.data=$scope.activityData.simpleDivide;
+                }
 
-                $scope.remove = function(scope) {
-                    scope.remove();
+                $scope.remove = function(node) {
+                    node.disable=true;
                 };
-
-                $scope.toggle = function(scope) {
-                    scope.toggle();
+                $scope.edit = function(node) {
+                    node.editing=true;
                 };
-                $scope.editNode = function(node) {
-                    node.editing = true;
-                };
-                $scope.saveNode = function(node) {
+                $scope.save = function(node) {
                     node.editing = false;
                 };
-                $scope.moveLastToTheBegginig = function () {
-                    var a = $scope.data.pop();
-                    $scope.data.splice(0,0, a);
-                };
-
-                $scope.newSubItem = function(scope) {
-                    var nodeData = scope.$modelValue;
-                    nodeData.nodes.push({
-                        id: nodeData.id * 10 + nodeData.nodes.length,
-                        title: nodeData.title + '.' + (nodeData.nodes.length + 1),
+                $scope.newSubItem = function(node) {
+                    node.nodes.push({
+                        title: 'New Item',
                         nodes: []
                     });
                 };
                 $scope.addNode = function(){
                     $scope.data.push({
-                        id:$scope.data.length+1,
-                        title:'node'+($scope.data.length+1),
+                        title:'New Item',
                         nodes:[]
                     });
                 };
@@ -119,14 +61,22 @@ app.config(function($stateProvider) {
                     return angular.element(document.getElementById("tree-root")).scope();
                 };
 
-                $scope.collapseAll = function() {
-                    var scope = getRootNodesScope();
-                    scope.collapseAll();
+                $scope.fromInput=function(){
                 };
+                $scope.toOutput=function(){
+                };
+                $scope.saveTool=function(){
+                    $scope.activityData.simpleDivide=$scope.data;
+                    var theActivityData=activityDataListRef.$getRecord($scope.activityData.$id);
+                    theActivityData.simpleDivide=$scope.data;
+                    activityDataListRef.$save(theActivityData).then(function() {
+                        $state.transitionTo($state.current, $stateParams, {
+                            reload: true,
+                            inherit: false,
+                            notify: true
+                        });
+                    });
 
-                $scope.expandAll = function() {
-                    var scope = getRootNodesScope();
-                    scope.expandAll();
                 };
             }
         });

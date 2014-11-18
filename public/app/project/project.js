@@ -582,10 +582,14 @@ app.config(function($stateProvider, $urlRouterProvider){
                     modalInstance.result.then(function (selectedItem) {
                         item.product=selectedItem;
                         _.each(feature.tool.inputs, function (input) {
-                            input.product = input.product.$id;
+                            if(input.product){
+                                input.product = input.product.$id;
+                            }
                         });
                         _.each(feature.tool.outputs, function (output) {
-                            output.product = output.product.$id;
+                            if(output.product){
+                                output.product = output.product.$id;
+                            }
                         });
                         activityDataListRef.$save($scope.activityData).then(function(){
                             $state.transitionTo($state.current, $stateParams, {
@@ -633,10 +637,14 @@ app.config(function($stateProvider, $urlRouterProvider){
                     modalInstance.result.then(function (selectedItem) {
                         item.product=selectedItem;
                         _.each(feature.tool.inputs, function (input) {
-                            input.product = input.product.$id;
+                            if(input.product){
+                                input.product = input.product.$id;
+                            }
                         });
                         _.each(feature.tool.outputs, function (output) {
-                            output.product = output.product.$id;
+                            if(output.product){
+                                output.product = output.product.$id;
+                            }
                         });
                         activityDataListRef.$save($scope.activityData).then(function(){
                             $state.transitionTo($state.current, $stateParams, {

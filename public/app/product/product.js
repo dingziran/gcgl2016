@@ -43,9 +43,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         $scope.product.data=null;
                     });
                 $scope.create=function(){
-                    if($scope.product.type==='json'){
-                        $scope.product.data=JSON.parse($scope.product.data);
-                    }
+//                    if($scope.product.type==='json'){
+//                        $scope.product.data=JSON.parse($scope.product.data);
+//                    }
                     f.add(productListRef,$scope.product).then(function() {
                         $state.go("^", {}, {reload: true});
                     });
@@ -83,11 +83,10 @@ app.config(function($stateProvider, $urlRouterProvider){
                     init();
                 };
                 $scope.save= function(item){
-                    if($scope.product.type==='json'){
-                        $scope.product.data=JSON.parse($scope.product.data);
-                    }
+//                    if($scope.product.type==='json'){
+//                        $scope.product.data=JSON.parse($scope.product.data);
+//                    }
                     ProductService.save(productListRef,product,item).then(function(){
-
                         $state.go("^", {}, {reload: true});
                     });
                 }
