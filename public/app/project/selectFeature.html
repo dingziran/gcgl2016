@@ -15,7 +15,7 @@
                     </tr>
                     <tr ng-repeat="item in unSelectFeatures">
                         <td>{{item.name}}</td>
-                        <td>{{item.description}}</td>
+                        <td><div ng-bind-html="item.description"></div></td>
                         <td>
                             <button class="btn btn-success" ng-click="select(item)">Select</button>
                         </td>
@@ -30,7 +30,7 @@
                     </tr>
                     <tr ng-repeat="item in activityData.features">
                         <td>{{item.name}}</td>
-                        <td>{{item.description}}</td>
+                        <td><div ng-bind-html="item.description"></div></td>
                         <td>
                             <button class="btn btn-success" ng-click="unselect(item)">Unselect</button>
                         </td>

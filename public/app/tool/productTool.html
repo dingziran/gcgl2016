@@ -1,32 +1,18 @@
 <div ui-view>
     <zr-header title="Tools for product"></zr-header>
     <div class="row">
-        <!--<div zr-panel="" title="Product List" col-lg="6">-->
-            <!--<table class="table">-->
-                <!--<tr>-->
-                    <!--<th>Product Name</th>-->
-                    <!--<th>Product Type</th>-->
-                    <!--<th>Product Tool</th>-->
-                    <!--<th>Action</th>-->
-                <!--</tr>-->
-                <!--<tr ng-repeat="product in productList">-->
-                    <!--<td>{{product.name}}</td>-->
-                    <!--<td>{{product.type}}</td>-->
-                    <!--<td>{{product.tool.name}}</td>-->
-                    <!--<td><button class="btn btn-primary" ui-sref="tool.product.select({productId:product.$id})">Select</button></td>-->
-                <!--</tr>-->
-            <!--</table>-->
-        <!--</div>-->
         <div zr-panel title="Tool List" col-lg="12">
             <table class="table">
                 <tr>
                     <th>Tool Name</th>
                     <th>Type</th>
+                    <th>Description</th>
                     <th>Action</th>
                 </tr>
                 <tr ng-repeat="tool in productToolList">
                     <td>{{tool.name}}</td>
                     <td>{{tool.type}}</td>
+                    <td><div ng-bind-html="tool.description"></div></td>
                     <td>
                         <button type="button" class="btn btn-warning btn-xs" ui-sref="tool.product.edit({id:tool.$id})">
                             <span class="glyphicon glyphicon-edit"></span> Edit

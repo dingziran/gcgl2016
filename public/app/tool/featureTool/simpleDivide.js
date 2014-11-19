@@ -53,6 +53,7 @@ app.config(function($stateProvider) {
                 $scope.addNode = function(){
                     $scope.data.push({
                         title:'New Item',
+                        editing:true,
                         nodes:[]
                     });
                 };
@@ -62,8 +63,34 @@ app.config(function($stateProvider) {
                 };
 
                 $scope.fromInput=function(){
+                    //get all inputs
+                    var allInput=$scope.feature.tool.inputs||[];
+                    //data property
+                    var data= _.filter(allInput,function(item){
+                        item.property="data";
+                    });
+                    if(!_.isEmpty(data)){
+                        var productDataId=data.productId;
+                        var productData=productDataListRef.$getRecord(productDataId);
+                        $scope.data=productData["data"];
+                    }
                 };
                 $scope.toOutput=function(){
+                    //get all inputs
+                    var allInput=$scope.feature.tool.inputs||[];
+                    //data property
+                    var data= _.filter(allInput,function(item){
+                        return item.property=="data";
+                    });
+                    if(!_.isEmpty(data)){
+                        console.log(data);
+                        var productDataId=data.productId;
+                        var productData=productDataListRef.$getRecord(productDataId);
+                        productData["data"]=$scope.data;
+                        productDataListRef.$save(productData).then(function(){
+                            $state.go("^",{},{reload:true});
+                        });
+                    }
                 };
                 $scope.saveTool=function(){
                     $scope.activityData.simpleDivide=$scope.data;

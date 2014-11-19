@@ -5,8 +5,8 @@ var app=angular.module("gcgl2016.template");
 app.config(function($stateProvider) {
     $stateProvider
         .state('main.project.activity.areaChart', {
-            url: "/areaChart/:featureId",
-            templateUrl: "app/tool/featureTool/areaChart.html",
+            url: "/areaChart/:productDataId",
+            templateUrl: "app/tool/productTool/areaChart.html",
             resolve:{
                 productData:function($stateParams,productDataListRef){
                     return productDataListRef.$getRecord($stateParams.productDataId);

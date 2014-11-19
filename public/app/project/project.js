@@ -14,6 +14,9 @@ app.config(function($stateProvider, $urlRouterProvider){
             },
             controller:function($scope,$state,f,$stateParams,ProjectService,projectListRef){
                 $scope.projectList= f.copy(projectListRef);
+                $scope.sizeOfKeys=function(item){
+                    return _.keys(item).length;
+                };
                 $scope.selectProcess=function(project){
                     $state.go('project.selectProcess',{projectId:project.$id});
                 };
@@ -194,7 +197,7 @@ app.config(function($stateProvider, $urlRouterProvider){
             controller:function($scope,$state,f,projectListRef){
                 $scope.project={};
                 $scope.create=function(project){
-                    project.status="New";
+                    project.creationTimeStamp=new Date().toDateString();
                     f.add(projectListRef,project).then(function(){
                         $state.go("^",{},{reload:true});
                     });
@@ -812,31 +815,6 @@ app.factory('ProjectService', function(f,ActivityService,ProductService) {
     var service = {
         getRefArray:function(){
             return f.ref('/project').$asArray().$loaded();
-        },
-        start: function(project){
-            project.status="Active";
-            return ActivityService.list().then(function(activityList){
-                project.exeActivities={};
-                _.each(activityList,function(activity){
-                    if(_.contains(project.activities,activity.$id)){
-                        project.exeActivities[activity.$id]=activity;
-                    }
-                });
-                ProductService.list().then(function(productList){
-                    project.exeProducts={};
-                    _.each(productList,function(product){
-                        _.each(project.activities,function(activityId){
-                            if(_.contains(project.exeActivities[activityId].inputs,product.$id)){
-                                project.exeProducts[product.$id]=product;
-                            }
-                            if(_.contains(project.exeActivities[activityId].outputs,product.$id)){
-                                project.exeProducts[product.$id]=product;
-                            }
-                        });
-                    });
-                    return list.$save(project);
-                });
-            });
         }
     };
     return service;

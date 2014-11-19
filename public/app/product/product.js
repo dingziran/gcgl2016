@@ -343,7 +343,7 @@ app.factory('ProductService', function(f,$q) {
             tmp.name=product.name;
             tmp.type=product.type;
             tmp.description=product.description;
-            tmp.creationTimeStamp=new Date().toString();
+            tmp.creationTimeStamp=new Date().toDateString();
             //TODO
             return tmp;
         }
