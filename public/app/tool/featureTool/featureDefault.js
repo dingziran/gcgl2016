@@ -18,6 +18,9 @@ app.config(function($stateProvider) {
                                   activityData,feature) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
+            },
+            data: {
+                displayName: 'Feature'
             }
         });
 });

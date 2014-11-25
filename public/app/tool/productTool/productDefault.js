@@ -15,6 +15,9 @@ app.config(function($stateProvider) {
             controller: function ($scope,$stateParams,f,
                                   productData) {
                 $scope.productData= f.copy(productData);
+            },
+            data: {
+                displayName: 'Product'
             }
         });
 });

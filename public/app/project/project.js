@@ -33,6 +33,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                     $state.go("project.start",{projectId:project.$id});
                 };
 
+            },
+            data: {
+                displayName: 'Product'
             }
         })
         .state('project.start', {
@@ -232,6 +235,9 @@ app.config(function($stateProvider, $urlRouterProvider){
             },
             controller:function($scope,$state,$stateParams,project){
                 $scope.project=project;
+            },
+            data: {
+                displayName: 'Project Selecting and Tailoring'
             }
         })
         .state('project.selectProcess.chooseActivity', {
@@ -283,6 +289,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         $state.go("^",{},{reload:true});
                     });
                 };
+            },
+            data: {
+                displayName: 'Select Activity'
             }
         })
         .state('project.selectProcess.selectedActivity', {
@@ -292,6 +301,9 @@ app.config(function($stateProvider, $urlRouterProvider){
             },
             controller:function($scope,$state,$stateParams,f,project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
                 $scope.activityDataList= f.copy(activityDataListRef);
+            },
+            data: {
+                displayName: 'Selected Activities'
             }
         })
         .state('project.selectProcess.selectedActivity.selectProduct', {
@@ -437,6 +449,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         });
                     });
                 };
+            },
+            data: {
+                displayName: 'Select Inputs and Outputs'
             }
         })
         .state('project.selectProcess.selectedActivity.selectFeature', {
@@ -486,6 +501,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         });
                     });
                 }
+            },
+            data: {
+                displayName: 'Select Feature'
             }
         })
         .state('project.selectProcess.selectedActivity.selectFeature.selectTool', {
@@ -660,6 +678,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         console.log('Modal dismissed at: ' + new Date());
                     });
                 };
+            },
+            data: {
+                displayName: 'Select Feature Tool'
             }
         })
         .state('project.selectProcess.selectedProduct', {
@@ -681,6 +702,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         });
                     });
                 }
+            },
+            data: {
+                displayName: 'Selected Product'
             }
         })
         .state('project.selectProcess.selectedProduct.selectTool', {
@@ -731,6 +755,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         console.log('Modal dismissed at: ' + new Date());
                     });
                 };
+            },
+            data: {
+                displayName: 'Select Product Tool'
             }
         })
         .state('project.edit', {

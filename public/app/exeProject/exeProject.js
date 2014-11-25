@@ -11,6 +11,9 @@ app.config(function($stateProvider){
             },
             controller: function ($scope,projectListRef,f) {
                 $scope.projectList= f.copy(projectListRef);
+            },
+            data: {
+                displayName: 'Home'
             }
         })
         .state('main.project',{
@@ -27,6 +30,9 @@ app.config(function($stateProvider){
             },
             controller:function($scope,$state,$stateParams,f,activityDataListRef){
                 $scope.activityDataList= f.copy(activityDataListRef);
+            },
+            data: {
+                displayName: 'Project'
             }
         })
         .state('main.project.activity',{
@@ -42,6 +48,9 @@ app.config(function($stateProvider){
                 $scope.activityData= f.copy(activityData);
                 $scope.activityData.inputs= f.extend($scope.activityData.inputs,productDataListRef);
                 $scope.activityData.outputs= f.extend($scope.activityData.outputs,productDataListRef);
+            },
+            data: {
+                displayName: 'Activity'
             }
         })
         .state('main.process',{

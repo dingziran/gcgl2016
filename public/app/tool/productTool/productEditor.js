@@ -22,6 +22,9 @@ app.config(function($stateProvider) {
                 $scope.reset=function(){
                     $scope.productData=f.copy(productData);
                 }
+            },
+            data: {
+                displayName: 'Document'
             }
         });
 });
