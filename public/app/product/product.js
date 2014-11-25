@@ -313,20 +313,21 @@ app.factory('ProductService', function(f,$q) {
             if(_.isUndefined(refs)||!refs.hasOwnProperty('$save')){
                 return;
             }
-            var keys=[
-                'name',
-                'description',
-                'type',
-                'exeTemplate',
-                'data'];
-            _.each(keys,function(key){
-                if(_.isUndefined(newItem[key])){
-                    oldItem[key]=null;
-                }
-                else{
-                    oldItem[key]=newItem[key];
-                }
-            });
+            // var keys=[
+            //     'name',
+            //     'description',
+            //     'type',
+            //     'exeTemplate',
+            //     'data'];
+            // _.each(keys,function(key){
+            //     if(_.isUndefined(newItem[key])){
+            //         oldItem[key]=null;
+            //     }
+            //     else{
+            //         oldItem[key]=newItem[key];
+            //     }
+            // });
+            _.extend(oldItem,newItem);
             return refs.$save(oldItem);
         },
         findByProperty:function(refs,property,value){

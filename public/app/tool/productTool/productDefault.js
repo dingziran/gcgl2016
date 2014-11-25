@@ -13,9 +13,7 @@ app.config(function($stateProvider) {
                 }
             },
             controller: function ($scope,$stateParams,f,
-                                  activityData,productData) {
-                $scope.activityData= f.copy(activityData);
-                console.log(productData);
+                                  productData) {
                 $scope.productData= f.copy(productData);
             }
         });
