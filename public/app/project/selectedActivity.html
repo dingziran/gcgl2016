@@ -9,6 +9,9 @@
                     <tr>
                         <th>Activity Name</th>
                         <th>Creation Time</th>
+                        <th>Inputs</th>
+                        <th>Outputs</th>
+                        <th>Features</th>
                         <th>Action</th>
                         <th></th>
                         <th></th>
@@ -16,6 +19,9 @@
                     <tr ng-repeat="item in activityDataList">
                         <td>{{item.name}}</td>
                         <td>{{item.creationTimeStamp}}</td>
+                        <td>{{item.inputs.length}}</td>
+                        <td>{{item.outputs.length}}</td>
+                        <td>{{item.features.length}}</td>
                         <td><button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectProduct({activityDataId:item.$id})">Select Inputs/Outputs</button></td>
                         <td><button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectFeature({activityDataId:item.$id})">Select Features</button></td>
                     </tr>

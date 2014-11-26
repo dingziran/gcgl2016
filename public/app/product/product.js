@@ -339,11 +339,12 @@ app.factory('ProductService', function(f,$q) {
         },
         createProductData:function(product){
             var tmp={};
+            _.extend(tmp,product);
             tmp.productId=product.$id;
-            tmp.name=product.name;
-            tmp.type=product.type;
-            tmp.description=product.description;
             tmp.creationTimeStamp=new Date().toDateString();
+//            tmp.name=product.name;
+//            tmp.type=product.type;
+//            tmp.description=product.description;
             //TODO
             return tmp;
         }
