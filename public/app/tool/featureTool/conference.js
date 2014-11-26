@@ -4,9 +4,9 @@
 var app=angular.module("gcgl2016.template");
 app.config(function($stateProvider) {
     $stateProvider
-        .state('main.project.activity.featureDefault', {
-            url: "/featureDefault/:featureId",
-            templateUrl: "app/tool/featureTool/featureDefault.html",
+        .state('main.project.activity.conference', {
+            url: "/conference/:featureId",
+            templateUrl: "app/tool/featureTool/conference.html",
             resolve:{
                 feature:function($stateParams,activityData){
                     return _.filter(activityData.features,function(feature){
@@ -20,7 +20,7 @@ app.config(function($stateProvider) {
                 $scope.feature= f.copy(feature);
             },
             data: {
-                displayName: 'Feature'
+                displayName: 'Conference'
             }
         });
 });
