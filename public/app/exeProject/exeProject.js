@@ -40,7 +40,7 @@ app.config(function($stateProvider){
             templateUrl:"app/exeProject/activityTemplate.html",
             resolve:{
                 activityData:function($stateParams,activityDataListRef,f){
-                    return f.copy(activityDataListRef.$getRecord($stateParams.activityId));
+                    return activityDataListRef.$getRecord($stateParams.activityId);
                 }
             },
             controller:function($scope,f,

@@ -18,38 +18,34 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                会议信息<button class="btn btn-success">保存</button>
+                会议信息<button class="btn btn-success" ng-click="save()">保存</button>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-lg-6 control-label">会议名称</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control"/>
+                        <label class="col-lg-2 control-label">会议名称</label>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" ng-model="conference.name"/>
+                        </div>
+                        <label class="col-lg-2 control-label">会议主持人姓名</label>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" ng-model="conference.presider"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-6 control-label">会议主持人姓名</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control"/>
+                        <label class="col-lg-2 control-label">会议召开时间</label>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" ng-model="conference.date"/>
+                        </div>
+                        <label class="col-lg-2 control-label">会议参与人员</label>
+                        <div class="col-lg-3">
+                            <textarea class="form-control" ng-model="conference.people"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-6 control-label">会议召开时间</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-6 control-label">会议参与人员</label>
-                        <div class="col-lg-6">
-                            <textarea class="form-control"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-6 control-label">会议议题</label>
-                        <div class="col-lg-6">
-                            <textarea class="form-control"></textarea>
+                        <label class="col-lg-2 control-label">会议议题</label>
+                        <div class="col-lg-8">
+                            <textarea class="form-control" ng-model="conference.topic"></textarea>
                         </div>
                     </div>
                 </form>
@@ -61,32 +57,26 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                会议内容<button class="btn btn-success">保存</button>
+                会议内容<button class="btn btn-success" ng-click="save()">保存</button><button class="btn btn-success" ng-click="output()">输出</button>
             </div>
             <div class="panel-body">
-                <form class="form">
+                <form>
                     <div class="form-group">
-                        <label class="col-lg-6 control-label">会议内容</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control"/>
+                        <label class="control-label">会议内容</label>
+                        <div>
+                            <textarea kendo-editor k-encoded="false" class="form-control" ng-model="conference.content"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-6 control-label">解决问题</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control"/>
+                        <label class="control-label">解决问题</label>
+                        <div>
+                            <textarea kendo-editor k-encoded="false" class="form-control" ng-model="conference.question"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-lg-6 control-label">最终结论</label>
-                        <div class="col-lg-6">
-                            <input type="text" class="form-control"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-lg-6 control-label">会议参与人员</label>
-                        <div class="col-lg-6">
-                            <textarea class="form-control"></textarea>
+                        <label class="control-label">最终结论</label>
+                        <div>
+                            <textarea kendo-editor k-encoded="false" class="form-control" ng-model="conference.conclusion"></textarea>
                         </div>
                     </div>
                 </form>
