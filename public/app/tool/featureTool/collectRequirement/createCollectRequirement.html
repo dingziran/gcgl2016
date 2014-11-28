@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+               需求项
+            </div>
+            <div class="panel-body">
+                <form>
+                    <div class="form-group">
+                        <label>需求名称</label>
+                        <input type="text" class="form-control" ng-model="requirement.name">
+                    </div>
+                    <div class="form-group">
+                        <label>需求来源</label>
+                        <input type="text" class="form-control" ng-model="requirement.src">
+                    </div>
+                    <div class="form-group">
+                        <label>需求描述</label>
+                        <textarea kendo-editor k-encoded="false" ng-model="requirement.description"></textarea>
+                    </div>
+                    <button class="btn btn-success" ng-click="create()">新建</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

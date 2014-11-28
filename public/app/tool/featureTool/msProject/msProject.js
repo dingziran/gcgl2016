@@ -4,8 +4,8 @@
 var app=angular.module("gcgl2016.template");
 app.config(function($stateProvider) {
     $stateProvider
-        .state('main.project.activity.msProject', {
-            url: "/msProject/:featureId",
+        .state('main.project.activity.featureDefault', {
+            url: "/featureDefault/:featureId",
             templateUrl: "app/tool/featureTool/msProject.html",
             resolve:{
                 feature:function($stateParams,activityData){
@@ -18,6 +18,9 @@ app.config(function($stateProvider) {
                                   activityData,feature) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
+            },
+            data: {
+                displayName: 'Feature'
             }
         });
 });

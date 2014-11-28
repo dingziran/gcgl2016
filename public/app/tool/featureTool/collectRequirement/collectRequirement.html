@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-lg-12">
+        <button class="btn btn-default" ng-click="showActivity=!showActivity">Show/Hide Activity Description</button>
+        <button class="btn btn-default" ng-click="showFeature=!showFeature">Show/Hide Feature Description</button>
+        <div class="well" ng-show="showActivity">
+            <h1>{{activityData.name}}</h1>
+            <h3>活动描述:</h3>
+            <div ng-bind-html="activityData.description"></div>
+        </div>
+        <div class="well" ng-show="showFeature">
+            <h2>{{feature.name}}</h2>
+            <h4>特征描述:</h4>
+            <div ng-bind-html="feature.description"></div>
+        </div>
+    </div>
+</div>
+<div class="row" ui-view>
+    <div class="col-lg-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                需求列表 <button class="btn btn-success" ui-sref="main.project.activity.collectRequirement.create">添加</button>
+                <button class="btn btn-success" ng-click="output()">输出</button>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <tr>
+                        <th>需求名称</th>
+                        <th>需求来源</th>
+                        <th>需求描述</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr ng-repeat="req in requirements">
+                        <td>{{req.name}}</td>
+                        <td>{{req.src}}</td>
+                        <td>{{req.description}}</td>
+                        <td><button class="btn btn-info btn-xs" ui-sref="main.project.activity.collectRequirement.edit({index:$index})">修改</button>
+                            <button class="btn btn-danger btn-xs" ng-click="delete(req)">删除</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
