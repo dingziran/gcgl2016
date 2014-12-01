@@ -16,6 +16,7 @@ app.config(function($stateProvider) {
                                   activityData,productData,productDataListRef) {
                 $scope.activityData= f.copy(activityData);
                 $scope.productData= f.copy(productData);
+                console.log($scope.productData);
                 $scope.save=function(){
                     ProductService.save(productDataListRef,productData,$scope.productData);
                 };

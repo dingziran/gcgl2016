@@ -692,8 +692,13 @@ app.config(function($stateProvider, $urlRouterProvider){
                 project,activityListRef,activityDataListRef,productListRef,productDataListRef,tagListRef,featureListRef,projectListRef){
                 $scope.productDataList= f.copy(productDataListRef);
                 $scope.refresh=function(product){
+                    console.log(product);
                     var theProduct=productDataListRef.$getRecord(product.$id);
+                    console.log(theProduct);
+//                    console.log(ProductService.createProductData(productListRef.$getRecord(theProduct.productId)));
                     _.extend(theProduct,ProductService.createProductData(productListRef.$getRecord(theProduct.productId)));
+//                    console.log(theProduct);
+                    theProduct.$id=product.$id;
                     productDataListRef.$save(theProduct).then(function(){
                         $state.transitionTo($state.current, $stateParams, {
                             reload: true,
