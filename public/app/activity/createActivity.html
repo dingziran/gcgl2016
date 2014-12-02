@@ -24,7 +24,7 @@
                         </tr>
                         <tr ng-repeat="feature in activity.features">
                             <td>{{feature.name}}</td>
-                            <td>{{feature.description}}</td>
+                            <td><div ng-bind-html='feature.description'></div></td>
                             <td zr-dropdown>
                                 <li>
                                     <a ng-click="remove(feature,'features')">
@@ -47,7 +47,7 @@
                         </tr>
                         <tr ng-repeat="tag in activity.tags">
                             <td>{{tag.name}}</td>
-                            <td>{{tag.description}}</td>
+                            <td><div ng-bind-html='tag.description'></div></td>
                             <td zr-dropdown>
                                 <li>
                                     <a ng-click="remove(tag,'tags')">
@@ -70,7 +70,7 @@
                         </tr>
                         <tr ng-repeat="input in activity.inputs">
                             <td>{{input.name}}</td>
-                            <td>{{input.description}}</td>
+                            <td><div ng-bind-html='input.description'></div></td>
                             <td zr-dropdown>
                                 <li>
                                     <a ng-click="remove(input,'inputs')">
@@ -93,7 +93,7 @@
                         </tr>
                         <tr ng-repeat="output in activity.outputs">
                             <td>{{output.name}}</td>
-                            <td>{{output.description}}</td>
+                            <td><div ng-bind-html='output.description'></div></td>
                             <td zr-dropdown>
                                 <li>
                                     <a ng-click="remove(output,'outputs')">

@@ -10,6 +10,9 @@ app.config(function($stateProvider, $urlRouterProvider){
             resolve:{
             },
             controller:function($scope){
+            },
+            data: {
+                displayName: 'Tool'
             }
         })
         .state('tool.feature', {
@@ -41,6 +44,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         });
                     });
                 }
+            },
+            data: {
+                displayName: 'Feature Tool'
             }
         })
         .state('tool.feature.create', {
@@ -82,6 +88,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         $state.go("^",{},{reload:true});
                     });
                 };
+            },
+            data: {
+                displayName: 'Create Tool'
             }
         })
         .state('tool.feature.edit', {
@@ -127,29 +136,11 @@ app.config(function($stateProvider, $urlRouterProvider){
                         $state.go("^",{},{reload:true});
                     });
                 };
+            },
+            data: {
+                displayName: 'Edit Tool'
             }
         })
-//        .state('tool.feature.select', {
-//            url: "/:featureId",
-//            templateUrl: "app/tool/selectFeatureTool.html",
-//            resolve:{
-//                feature:function($stateParams,featureListRef){
-//                    return featureListRef.$getRecord($stateParams.featureId);
-//                }
-//            },
-//            controller:function($scope,$state,f,feature,featureListRef,featureToolListRef){
-//                $scope.featureToolList= _.filter(f.copy(featureToolListRef),function(tool){
-//                    return _.isEmpty(tool.feature)||tool.feature==feature.$id;
-//                });
-//
-//                $scope.select=function(item){
-//                    feature.tool=item.$id;
-//                    f.save(featureListRef,feature).then(function(){
-//                        $state.go("^",{},{reload:true});
-//                    });
-//                };
-//            }
-//        })
         .state('tool.product', {
             url: "/product",
             templateUrl: "app/tool/productTool.html",
@@ -176,6 +167,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         });
                     });
                 };
+            },
+            data: {
+                displayName: 'Product Tool'
             }
         })
         .state('tool.product.create', {
@@ -194,6 +188,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         $state.go("^",{},{reload:true});
                     });
                 };
+            },
+            data: {
+                displayName: 'Create Tool'
             }
         })
         .state('tool.product.edit', {
@@ -216,31 +213,11 @@ app.config(function($stateProvider, $urlRouterProvider){
                         $state.go("^",{},{reload:true});
                     });
                 };
+            },
+            data: {
+                displayName: 'Edit Tool'
             }
         });
-//        .state('tool.product.select', {
-//            url: "/:productId",
-//            templateUrl: "app/tool/selectProductTool.html",
-//            resolve:{
-//                product:function($stateParams,productListRef){
-//                    return productListRef.$getRecord($stateParams.productId);
-//                }
-//            },
-//            controller:function($scope,$state,f,productListRef,product,productToolListRef){
-//                $scope.productToolList= _.filter(productToolListRef,function(tool){
-//                    console.log(tool.type);
-//                    console.log(product.type);
-//                    return _.isEmpty(tool.type)||tool.type===product.type;
-//                });
-//
-//                $scope.select=function(item){
-//                    product.tool= item.$id;
-//                    f.save(productListRef,product).then(function(){
-//                        $state.go("^",{},{reload:true});
-//                    });
-//                };
-//            }
-//        });
 });
 app.factory('ToolService', function(f,$q) {
     //Public Method

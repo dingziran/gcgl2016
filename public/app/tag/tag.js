@@ -26,6 +26,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
                     });
                 };
 
+            },
+            data: {
+                displayName: 'Tag'
             }
         })
         .state('tag.create', {

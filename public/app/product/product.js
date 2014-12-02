@@ -25,6 +25,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                     });
                 };
 
+            },
+            data: {
+                displayName: 'Product'
             }
         })
         .state('product.create', {
@@ -50,6 +53,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         $state.go("^", {}, {reload: true});
                     });
                 };
+            },
+            data: {
+                displayName: 'Create Product'
             }
         })
         .state('product.edit', {
@@ -90,6 +96,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         $state.go("^", {}, {reload: true});
                     });
                 }
+            },
+            data: {
+                displayName: 'Edit Product'
             }
         });
 });
@@ -313,20 +322,6 @@ app.factory('ProductService', function(f,$q) {
             if(_.isUndefined(refs)||!refs.hasOwnProperty('$save')){
                 return;
             }
-            // var keys=[
-            //     'name',
-            //     'description',
-            //     'type',
-            //     'exeTemplate',
-            //     'data'];
-            // _.each(keys,function(key){
-            //     if(_.isUndefined(newItem[key])){
-            //         oldItem[key]=null;
-            //     }
-            //     else{
-            //         oldItem[key]=newItem[key];
-            //     }
-            // });
             _.extend(oldItem,newItem);
             return refs.$save(oldItem);
         },
@@ -349,13 +344,6 @@ app.factory('ProductService', function(f,$q) {
             //TODO
             return tmp;
         }
-//        refreshProductData:function(old,product){
-//            old.productId=product.$id;
-//            old.name=product.name;
-//            old.type=product.type;
-//            //TODO
-//            return old;
-//        }
     };
     return service;
 });

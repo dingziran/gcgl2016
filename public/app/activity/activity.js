@@ -59,7 +59,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'activity'
+                displayName: 'Activity'
             }
         })
         .state('activity.create',{
@@ -208,6 +208,9 @@ app.config(function($stateProvider, $urlRouterProvider){
                         console.log('Modal dismissed at: ' + new Date());
                     });
                 };
+            },
+            data: {
+                displayName: 'Edit Activity'
             }
         });
 });
