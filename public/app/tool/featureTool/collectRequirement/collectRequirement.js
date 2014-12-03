@@ -1,7 +1,7 @@
 /**
  * Created by dingziran on 2014/11/14.
  */
-var app=angular.module("gcgl2016.template");
+var app=angular.module("gcgl2016.tool");
 app.config(function($stateProvider) {
     $stateProvider
         .state('main.project.activity.collectRequirement', {

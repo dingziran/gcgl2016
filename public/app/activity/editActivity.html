@@ -24,7 +24,7 @@
                         </tr>
                         <tr ng-repeat="feature in activity.features">
                             <td>{{feature.name}}</td>
-                            <td>{{feature.description}}</td>
+                            <td><div ng-bind-html='feature.description'></div></td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(feature,'features')">
                                     <span class="glyphicon glyphicon-trash"></span> Del
@@ -45,7 +45,7 @@
                         </tr>
                         <tr ng-repeat="tag in activity.tags">
                             <td>{{tag.name}}</td>
-                            <td>{{tag.description}}</td>
+                            <td><div ng-bind-html='tag.description'></div></td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(tag,'tags')">
                                     <span class="glyphicon glyphicon-trash"></span> Del
@@ -66,7 +66,7 @@
                         </tr>
                         <tr ng-repeat="input in activity.inputs">
                             <td>{{input.name}}</td>
-                            <td>{{input.description}}</td>
+                            <td><div ng-bind-html='input.description'></div></td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(input,'inputs')">
                                     <span class="glyphicon glyphicon-trash"></span> Del
@@ -87,7 +87,7 @@
                         </tr>
                         <tr ng-repeat="output in activity.outputs">
                             <td>{{output.name}}</td>
-                            <td>{{output.description}}</td>
+                            <td><div ng-bind-html='output.description'></div></td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(output,'outputs')">
                                     <span class="glyphicon glyphicon-trash"></span> Del

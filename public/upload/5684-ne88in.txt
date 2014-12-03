@@ -1,3 +1,0 @@
-sponsor name	responsibilities
-Mike		coder
-John		tester
