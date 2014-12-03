@@ -4,9 +4,9 @@
 var app=angular.module("gcgl2016.template");
 app.config(function($stateProvider) {
     $stateProvider
-        .state('main.project.activity.featureDefault', {
-            url: "/featureDefault/:featureId",
-            templateUrl: "app/tool/featureTool/featureDefault.html",
+        .state('main.project.activity.estimate', {
+            url: "/estimate/:featureId",
+            templateUrl: "app/tool/featureTool/estimate/estimate.html",
             resolve:{
                 feature:function($stateParams,activityData){
                     return _.filter(activityData.features,function(feature){
