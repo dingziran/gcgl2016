@@ -2,7 +2,6 @@ var app=angular.module("gcgl2016",[
     'ui.router',
     'ui.bootstrap',
     'ui.tree',
-    'ui.grid',
     'firebase',
     'gcgl2016.directives',
     "gcgl2016.filters",
