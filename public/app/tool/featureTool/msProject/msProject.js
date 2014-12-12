@@ -15,16 +15,31 @@ app.config(function($stateProvider) {
                 }
             },
             controller: function ($scope,$stateParams,f,
-                                  activityData,feature) {
+                                  activityData,feature,productDataListRef) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
                 $scope.download= function(){
+                    //get all inputs
+                    var allInput=$scope.feature.tool.inputs||[];
+                    console.log(allInput);
+                    //data property
+                    var data= _.filter(allInput,function(item){
+                        return item.property=="data";
+                    });
+                    if(!_.isEmpty(data)){
+                        var productDataId=data[0].product;
+                        console.log(productDataId);
+                        var productData=productDataListRef.$getRecord(productDataId);
+                        console.log(productData);
+                        $scope.data=productData["data"];
+                    }
+
                     function createTask(task,id){
                         var ret="";
                         ret+='<Task>';
                         ret+='<UID>'+id+'</UID>';
                         ret+='<ID>'+id+'</ID>';
-                        ret+='<Name>'+task.name+'</Name>';
+                        ret+='<Name>'+task.title+'</Name>';
                         ret+='<Active>1</Active>'+
                         '<Manual>1</Manual>'+
                         '<Type>0</Type>'+
@@ -49,12 +64,9 @@ app.config(function($stateProvider) {
                             '<Manual>0</Manual>'+
                             '<Type>1</Type>'+
                     '    </Task>';
-                    var task={name:'任务一'};
-                    msproject+=createTask(task,1);
-                    task.name='任务二';
-                    msproject+=createTask(task,2);
-                    task.name='任务三';
-                    msproject+=createTask(task,3);
+                    _.each($scope.data,function(item,index){
+                        msproject+=createTask(item,index+1);
+                    });
                     msproject+=
                     '</Tasks>'+
                     '</Project>';

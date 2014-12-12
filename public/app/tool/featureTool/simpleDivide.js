@@ -18,18 +18,18 @@ app.config(function($stateProvider) {
                                   activityData,feature,productDataListRef,activityDataListRef) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
-                if($scope.feature.tool){
-                    if($scope.feature.tool.inputs){
-                        _.each($scope.feature.tool.inputs,function(input){
-                            input.product=productDataListRef.$getRecord(input.product);
-                        });
-                    }
-                    if($scope.feature.tool.outputs){
-                        _.each($scope.feature.tool.outputs,function(output){
-                            output.product=productDataListRef.$getRecord(output.product);
-                        });
-                    }
-                }
+//                if($scope.feature.tool){
+//                    if($scope.feature.tool.inputs){
+//                        _.each($scope.feature.tool.inputs,function(input){
+//                            input.product=productDataListRef.$getRecord(input.product);
+//                        });
+//                    }
+//                    if($scope.feature.tool.outputs){
+//                        _.each($scope.feature.tool.outputs,function(output){
+//                            output.product=productDataListRef.$getRecord(output.product);
+//                        });
+//                    }
+//                }
                 $scope.data=[];
                 if($scope.activityData.simpleDivide){
                     $scope.data=$scope.activityData.simpleDivide;
@@ -70,21 +70,21 @@ app.config(function($stateProvider) {
                         item.property="data";
                     });
                     if(!_.isEmpty(data)){
-                        var productDataId=data.productId;
+                        var productDataId=data.product;
                         var productData=productDataListRef.$getRecord(productDataId);
                         $scope.data=productData["data"];
                     }
                 };
                 $scope.toOutput=function(){
                     //get all inputs
-                    var allInput=$scope.feature.tool.inputs||[];
+                    var allOutput=$scope.feature.tool.outputs||[];
                     //data property
-                    var data= _.filter(allInput,function(item){
+                    var data= _.filter(allOutput,function(item){
                         return item.property=="data";
                     });
                     if(!_.isEmpty(data)){
                         console.log(data);
-                        var productDataId=data.productId;
+                        var productDataId=data[0].product;
                         var productData=productDataListRef.$getRecord(productDataId);
                         productData["data"]=$scope.data;
                         productDataListRef.$save(productData).then(function(){
