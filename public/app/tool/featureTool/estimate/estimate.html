@@ -23,19 +23,26 @@
                 <!--<td><button class="btn btn-primary" ng-click="open()">打开</button></td>-->
             <!--</tr>-->
             <tr>
+                <td><label>工具地址</label></td>
+                <td><input type="text" size="40" ng-model="activityData.address"></td>
+                <td><button class="btn btn-primary" ng-click="save()">保存</button>
+                    <button class="btn btn-primary" ng-click="open()">打开工具</button></td>    
+            </tr>
+            <tr>
                 <td><label>初始化接口的地址</label></td>
-                <td><input type="text" size="40"></td>
-                <td><button class="btn btn-primary">发送</button></td>
+                <td><input type="text" size="40" ng-model="activityData.sendAddress"></td>
+                <td><button class="btn btn-primary" ng-click="send()">发送</button></td>
+                <td ng-show="projectId">已发送，生成项目id:{{projectId}}</td>
             </tr>
             <tr>
                 <td><label>获取最估算结果的地址</label></td>
-                <td><input type="text" size="40"></td>
-                <td><button class="btn btn-primary">接收</button></td>
+                <td><input type="text" size="40" ng-model="activityData.receiveAddress"></td>
+                <td><button class="btn btn-primary" ng-click="receive()">接收</button></td>
             </tr>
         </table>
 
     </div>
 </div>
 <div style="height:800px">
-    <iframe frameborder="0" marginheight="0" marginwidth="0" width="100%" height="100%" src="http://localhost:8889/nesma/"></iframe>
+    <pre>{{data}}</pre>
 </div>

@@ -20,6 +20,9 @@ app.config(function($stateProvider){
             url:"/:projectId",
             templateUrl:"app/exeProject/activityList.html",
             resolve:{
+                project:function($stateParams,projectListRef){
+                    return projectListRef.$getRecord($stateParams.projectId);
+                },
                 activityDataListRef:function($stateParams,ActivityService){
                     return ActivityService.getActivityDataRef($stateParams.projectId);
                 },
