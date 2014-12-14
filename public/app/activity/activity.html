@@ -1,22 +1,22 @@
 <div ui-view>
-    <zr-header title="Activity Management"></zr-header>
+    <zr-header title="管理活动"></zr-header>
 
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Activity List
-                    <button class="btn btn-success" ui-sref="activity.create">Create Activity</button>
+                    活动列表
+                    <button class="btn btn-success" ui-sref="activity.create">新建活动</button>
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <tr>
-                            <th>Activity Name</th>
-                            <th>Features</th>
-                            <th>Tags</th>
-                            <th>Inputs</th>
-                            <th>Outputs</th>
-                            <th>Actions</th>
+                            <th>活动名称</th>
+                            <th>包含特征</th>
+                            <th>所属标签</th>
+                            <th>输入</th>
+                            <th>输出</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="(key,item) in activityList">
                             <td>{{item.name}}</td>
@@ -26,10 +26,10 @@
                             <td>{{item.outputs}}</td>
                             <td nowrap>
                                 <button type="button" class="btn btn-warning btn-xs" ui-sref="activity.edit({id:item.$id})">
-                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                    <span class="glyphicon glyphicon-edit"></span> 编辑
                                 </button>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="removeActivity(item)">
-                                    <span class="glyphicon glyphicon-trash"></span> Del
+                                    <span class="glyphicon glyphicon-trash"></span> 删除
                                 </button>
                             </td>
                         </tr>

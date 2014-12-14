@@ -59,7 +59,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Activity'
+                displayName: '管理活动'
             }
         })
         .state('activity.create',{
@@ -130,7 +130,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Create Activity'
+                displayName: '新建活动'
             }
         })
         .state('activity.edit', {
@@ -210,7 +210,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Edit Activity'
+                displayName: '修改活动'
             }
         });
 });

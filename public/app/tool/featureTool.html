@@ -1,30 +1,14 @@
 <div ui-view>
-    <zr-header title="Tool for feature"></zr-header>
+    <zr-header title="管理特征工具"></zr-header>
     <div class="row">
-        <!--<div zr-panel="" title="Feature List" col-lg="6">-->
-            <!--<table class="table">-->
-                <!--<tr>-->
-                    <!--<th>Feature Name</th>-->
-                    <!--<th>Tool Name</th>-->
-                    <!--<th>Action</th>-->
-                <!--</tr>-->
-                <!--<tr ng-repeat="item in featureList">-->
-                    <!--<td>{{item.name}}</td>-->
-                    <!--<td>{{item.tool.name}}</td>-->
-                    <!--<td>-->
-                        <!--<button class="btn btn-primary" ui-sref="tool.feature.select({featureId:item.$id})">Select Tool</button>-->
-                    <!--</td>-->
-                <!--</tr>-->
-            <!--</table>-->
-        <!--</div>-->
-        <div zr-panel title="Tool List" col-lg="12">
+        <div zr-panel title="特征工具列表" col-lg="12">
             <table class="table">
                 <tr>
-                    <th>Tool Name</th>
-                    <th>Belong Feature</th>
-                    <th>Input Properties</th>
-                    <th>Output Properties</th>
-                    <th>Action</th>
+                    <th>工具名称</th>
+                    <th>所属特征</th>
+                    <th>输入属性</th>
+                    <th>输出属性</th>
+                    <th>操作</th>
                 </tr>
                 <tr ng-repeat="item in featureToolList">
                     <td>{{item.name}}</td>
@@ -37,14 +21,14 @@
                     </td>
                     <td>
                         <button type="button" class="btn btn-warning btn-xs" ui-sref="tool.feature.edit({id:item.$id})">
-                            <span class="glyphicon glyphicon-edit"></span> Edit
+                            <span class="glyphicon glyphicon-edit"></span> 修改
                         </button>
                         <button type="button" class="btn btn-danger btn-xs" ng-click="remove(item)">
-                            <span class="glyphicon glyphicon-trash"></span> Del
+                            <span class="glyphicon glyphicon-trash"></span> 删除
                         </button>
                 </tr>
             </table>
-            <button class="btn btn-success" ui-sref="tool.feature.create">Add</button>
+            <button class="btn btn-success" ui-sref="tool.feature.create">上传特征工具x</button>
         </div>
     </div>
 </div>

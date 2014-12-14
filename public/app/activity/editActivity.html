@@ -1,104 +1,104 @@
-<zr-header title="Edit Activity"></zr-header>
+<zr-header title="修改活动"></zr-header>
 <div class="row">
-    <div zr-panel title="Input your activity information." col-lg="12">
+    <div zr-panel title="输入活动属性" col-lg="12">
         <form>
             <div class="form-group">
-                <label>Activity name</label>
+                <label>活动名称</label>
                 <input type="text" class="form-control" ng-model="activity.name">
             </div>
             <div class="form-group">
-                <label>Activity description</label>
+                <label>活动描述</label>
                 <textarea kendo-editor k-encoded="false" ng-model="activity.description" style="height:800px"></textarea>
             </div>
             <div class="form-group">
-                <label>Tailoring Criteria</label>
+                <label>裁剪指南</label>
                 <textarea kendo-editor k-encoded="false" ng-model="activity.tailor"></textarea>
             </div>
             <div class="form-group">
-                <div zr-panel title="Activity features">
+                <div zr-panel title="活动特征">
                     <table class="table">
                         <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Opt</th>
+                            <th>特征名称</th>
+                            <th>特征描述</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="feature in activity.features">
                             <td>{{feature.name}}</td>
                             <td><div ng-bind-html='feature.description'></div></td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(feature,'features')">
-                                    <span class="glyphicon glyphicon-trash"></span> Del
+                                    <span class="glyphicon glyphicon-trash"></span> 删除
                                 </button>
                             </td>
                         </tr>
                     </table>
-                    <button class="btn btn-primary" ng-click="addItem('features',featureListRef)">Add Feature</button>
+                    <button class="btn btn-primary" ng-click="addItem('features',featureListRef)">添加特征</button>
                 </div>
             </div>
             <div class="form-group">
-                <div zr-panel title="Activity tags">
+                <div zr-panel title="活动标签">
                     <table class="table">
                         <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Opt</th>
+                            <th>标签名称</th>
+                            <th>标签描述</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="tag in activity.tags">
                             <td>{{tag.name}}</td>
                             <td><div ng-bind-html='tag.description'></div></td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(tag,'tags')">
-                                    <span class="glyphicon glyphicon-trash"></span> Del
+                                    <span class="glyphicon glyphicon-trash"></span> 删除
                                 </button>
                             </td>
                         </tr>
                     </table>
-                    <button class="btn btn-primary" ng-click="addItem('tags',tagListRef)">Add Tag</button>
+                    <button class="btn btn-primary" ng-click="addItem('tags',tagListRef)">添加标签</button>
                 </div>
             </div>
             <div class="form-group">
-                <div zr-panel title="Activity inputs">
+                <div zr-panel title="活动输入">
                     <table class="table">
                         <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Opt</th>
+                            <th>名称</th>
+                            <th>描述</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="input in activity.inputs">
                             <td>{{input.name}}</td>
                             <td><div ng-bind-html='input.description'></div></td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(input,'inputs')">
-                                    <span class="glyphicon glyphicon-trash"></span> Del
+                                    <span class="glyphicon glyphicon-trash"></span> 删除
                                 </button>
                             </td>
                         </tr>
                     </table>
-                    <button class="btn btn-primary" ng-click="addItem('inputs',productListRef)">Add Input</button>
+                    <button class="btn btn-primary" ng-click="addItem('inputs',productListRef)">添加输入</button>
                 </div>
             </div>
             <div class="form-group">
-                <div zr-panel title="Activity outputs">
+                <div zr-panel title="活动输出">
                     <table class="table">
                         <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Opt</th>
+                            <th>名称</th>
+                            <th>描述</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="output in activity.outputs">
                             <td>{{output.name}}</td>
                             <td><div ng-bind-html='output.description'></div></td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(output,'outputs')">
-                                    <span class="glyphicon glyphicon-trash"></span> Del
+                                    <span class="glyphicon glyphicon-trash"></span> 删除
                                 </button>
                             </td>
                         </tr>
                     </table>
-                    <button class="btn btn-primary" ng-click="addItem('outputs',productListRef)">Add Output</button>
+                    <button class="btn btn-primary" ng-click="addItem('outputs',productListRef)">添加输出</button>
                 </div>
             </div>
-            <button class="btn btn-primary" ng-click="save()">Save</button>
+            <button class="btn btn-primary" ng-click="save()">保存</button>
         </form>
     </div>
 </div>

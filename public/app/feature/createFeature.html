@@ -1,23 +1,21 @@
 <div ui-view>
-    <zr-header title="Create Feature"></zr-header>
+    <zr-header title="新建特征"></zr-header>
 
     <div class="row">
-        <div zr-panel title="Input feature information" col-lg="12">
-            <div zr-help="">Feature means what's the type of the activity. For example, WBS is to divide top work package into sub work packages.
-                There are different ways to do WBS. For example, we can divide by product or divide by process. So WBS is a feature. The different ways of doing WBS are different activities with WBS feature.  </div>
+        <div zr-panel title="输入特征属性" col-lg="12">
             <form name="form" novalidate>
                 <div class="form-group">
-                    <label>Feature name</label>
+                    <label>特征名称</label>
                     <input name="name" type="text" class="form-control" ng-model="feature.name" required>
                     <div class="error" ng-show="form.name.$dirty && form.name.$invalid">
                         <small class="bg-danger">This field is required!</small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Feature description</label>
+                    <label>特征描述</label>
                     <textarea kendo-editor k-encoded="false" ng-model="feature.description" style="height:800px"></textarea>
                 </div>
-                <button class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">Create</button>
+                <button class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">新建</button>
             </form>
         </div>
     </div>

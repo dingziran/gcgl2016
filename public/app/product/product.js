@@ -27,7 +27,7 @@ app.config(function($stateProvider, $urlRouterProvider){
 
             },
             data: {
-                displayName: 'Product'
+                displayName: '管理工作产品'
             }
         })
         .state('product.create', {
@@ -55,7 +55,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Create Product'
+                displayName: '新建工作产品'
             }
         })
         .state('product.edit', {
@@ -98,7 +98,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 }
             },
             data: {
-                displayName: 'Edit Product'
+                displayName: '修改工作产品'
             }
         });
 });

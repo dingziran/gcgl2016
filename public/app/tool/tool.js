@@ -12,7 +12,7 @@ app.config(function($stateProvider, $urlRouterProvider){
             controller:function($scope){
             },
             data: {
-                displayName: 'Tool'
+                displayName: '管理工具'
             }
         })
         .state('tool.feature', {
@@ -46,7 +46,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 }
             },
             data: {
-                displayName: 'Feature Tool'
+                displayName: '管理特征工具'
             }
         })
         .state('tool.feature.create', {
@@ -90,7 +90,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Create Tool'
+                displayName: '上传特征工具'
             }
         })
         .state('tool.feature.edit', {
@@ -138,7 +138,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Edit Tool'
+                displayName: '修改特征工具'
             }
         })
         .state('tool.product', {
@@ -169,7 +169,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Product Tool'
+                displayName: '管理工作产品工具'
             }
         })
         .state('tool.product.create', {
@@ -190,7 +190,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Create Tool'
+                displayName: '上传工作产品工具'
             }
         })
         .state('tool.product.edit', {
@@ -215,7 +215,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Edit Tool'
+                displayName: '修改工作产品工具'
             }
         });
 });

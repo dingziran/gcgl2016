@@ -1,29 +1,29 @@
 <div ui-view>
-    <zr-header title="Product Management"></zr-header>
+    <zr-header title="管理工作产品"></zr-header>
 
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Product List
-                    <button class="btn btn-success" ui-sref="product.create">Create product</button>
+                    工作产品列表
+                    <button class="btn btn-success" ui-sref="product.create">新建工作产品</button>
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <tr>
-                            <th>Product Name</th>
-                            <th>Product Type</th>
-                            <th>Actions</th>
+                            <th>工作产品名称</th>
+                            <th>工作产品类型</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="pro in productList">
                             <td>{{pro.name}}</td>
                             <td>{{pro.type}}</td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-xs" ui-sref="product.edit({id:pro.$id})">
-                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                    <span class="glyphicon glyphicon-edit"></span> 修改
                                 </button>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(pro)">
-                                    <span class="glyphicon glyphicon-trash"></span> Del
+                                    <span class="glyphicon glyphicon-trash"></span> 删除
                                 </button>
                             </td>
                         </tr>

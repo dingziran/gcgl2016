@@ -1,31 +1,31 @@
 <div ui-view>
-    <zr-header title="Tag Management"></zr-header>
+    <zr-header title="管理标签"></zr-header>
 
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Tag List <button class="btn btn-success" ui-sref="tag.create">Create Tag</button>
+                    标签列表 <button class="btn btn-success" ui-sref="tag.create">新建标签</button>
                 </div>
                 <div class="panel-body">
                     <table class="table">
                         <tr>
-                            <th>Tag Name</th>
-                            <th>Tag Description</th>
-                            <th>Actions</th>
+                            <th>标签名称</th>
+                            <th>标签描述</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="tag in tagList">
                             <td>{{tag.name}}</td>
                             <td><div ng-bind-html="tag.description"></div></td>
                             <td>
                                 <button type="button" class="btn btn-warning btn-xs" ui-sref="tag.edit({id:tag.$id})">
-                                    <span class="glyphicon glyphicon-edit"></span> Edit
+                                    <span class="glyphicon glyphicon-edit"></span> 修改
                                 </button>
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(tag)">
-                                    <span class="glyphicon glyphicon-trash"></span> Del
+                                    <span class="glyphicon glyphicon-trash"></span> 删除
                                 </button>
                                 <button type="button" class="btn btn-info btn-xs" ui-sref="tag.filter({id:tag.$id})">
-                                    <span class="glyphicon glyphicon-flag"></span> Filter
+                                    <span class="glyphicon glyphicon-flag"></span> 所属活动
                                 </button>
                             </td>
                         </tr>

@@ -1,13 +1,13 @@
 <div ui-view>
-    <zr-header title="Tools for product"></zr-header>
+    <zr-header title="管理工作产品工具"></zr-header>
     <div class="row">
-        <div zr-panel title="Tool List" col-lg="12">
+        <div zr-panel title="工作产品工具列表" col-lg="12">
             <table class="table">
                 <tr>
-                    <th>Tool Name</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                    <th>Action</th>
+                    <th>工具名称</th>
+                    <th>所属工作产品类型</th>
+                    <th>工具描述</th>
+                    <th>操作</th>
                 </tr>
                 <tr ng-repeat="tool in productToolList">
                     <td>{{tool.name}}</td>
@@ -15,14 +15,14 @@
                     <td><div ng-bind-html="tool.description"></div></td>
                     <td>
                         <button type="button" class="btn btn-warning btn-xs" ui-sref="tool.product.edit({id:tool.$id})">
-                            <span class="glyphicon glyphicon-edit"></span> Edit
+                            <span class="glyphicon glyphicon-edit"></span> 修改
                         </button>
                         <button type="button" class="btn btn-danger btn-xs" ng-click="remove(tool)">
-                            <span class="glyphicon glyphicon-trash"></span> Del
+                            <span class="glyphicon glyphicon-trash"></span> 删除
                         </button>
                 </tr>
             </table>
-            <button class="btn btn-success" ui-sref="tool.product.create">Add</button>
+            <button class="btn btn-success" ui-sref="tool.product.create">上传工作产品工具</button>
         </div>
     </div>
 </div>

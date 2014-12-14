@@ -1,37 +1,32 @@
-<zr-header title="Create Product Tool"></zr-header>
+<zr-header title="上传工作产品工具"></zr-header>
 <div class="row">
-    <div zr-panel title="Input tool information" col-lg="12">
-        <div zr-help="">
-            If you want to upload a tool. Put the tool in the app/tool/activityTool  dir.
-            Adding this js file to index.html.
-            And then add the html path to the tool's Url.
-        </div>
+    <div zr-panel title="输入工作产品工具属性" col-lg="12">
         <form name="form" novalidate>
             <div class="form-group">
-                <label>Tool Name</label>
+                <label>工具名称</label>
                 <input type="text" name="name" class="form-control" ng-model="tool.name" required/>
                 <div class="error" ng-show="form.name.$dirty && form.name.$invalid">
                     <small class="bg-danger">This field is required!</small>
                 </div>
             </div>
             <div class="form-group">
-                <label>Url</label>
+                <label>工具地址</label>
                 <input type="text" name="url" class="form-control" ng-model="tool.url" required/>
                 <div class="error" ng-show="form.url.$dirty && form.url.$invalid">
                     <small class="bg-danger">This field is required!</small>
                 </div>
             </div>
             <div class="form-group">
-                <label>Type</label>
+                <label>工具所属工作产品类型</label>
                 <select name="type" class="form-control" ng-model="tool.type" ng-options="type as type for type in types">
                     <option value="">----</option>
                 </select>
             </div>
             <div class="form-group">
-                <label>Description</label>
+                <label>工具描述</label>
                 <textarea kendo-editor k-encoded="false" ng-model="tool.description"></textarea>
             </div>
         </form>
-        <button class="btn btn-success" ng-click="add(tool)" ng-disabled="form.$invalid">Add Tool</button>
+        <button class="btn btn-success" ng-click="add(tool)" ng-disabled="form.$invalid">确认</button>
     </div>
 </div>

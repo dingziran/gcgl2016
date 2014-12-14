@@ -1,40 +1,35 @@
-<zr-header title="Edit Feature Tool"></zr-header>
+<zr-header title="修改特征工具"></zr-header>
 <div class="row">
-    <div zr-panel title="Input template information" col-lg="12">
-        <div zr-help="">
-            If you want to upload a tool. Put the toll in the app/tool/featureTool  dir.
-            Include the js file in index.html.
-            And then add the html path to the tool's Url.
-        </div>
+    <div zr-panel title="输入特征工具属性" col-lg="12">
         <form name="form" novalidate>
             <div class="form-group">
-                <label>Tool Name</label>
+                <label>工具名称</label>
                 <input type="text" name="name" class="form-control" ng-model="tool.name" required/>
                 <div class="error" ng-show="form.name.$dirty && form.name.$invalid">
                     <small class="bg-danger">This field is required!</small>
                 </div>
             </div>
             <div class="form-group">
-                <label>Tool Url</label>
+                <label>工具地址</label>
                 <input type="text" name="url" class="form-control" ng-model="tool.url" required/>
                 <div class="error" ng-show="form.url.$dirty && form.url.$invalid">
                     <small class="bg-danger">This field is required!</small>
                 </div>
             </div>
             <div class="form-group">
-                <label>Feature</label>
+                <label>所属特征</label>
                 <select name="feature" class="form-control" ng-model="tool.feature" ng-options="feature.$id as feature.name for feature in featureList">
                     <option value="">----</option>
                 </select>
             </div>
             <div class="panel panel-primary">
-                <div class="panel-heading">Inputs<button class="btn btn-success" ng-click="addInput(tool)">Add</button></div>
+                <div class="panel-heading">输入属性<button class="btn btn-success" ng-click="addInput(tool)">添加</button></div>
                 <div class="panel-body">
                     <table class="table">
                         <tr>
-                            <th>Input Type</th>
-                            <th>Input Property</th>
-                            <th>Action</th>
+                            <th>输入类型</th>
+                            <th>输入属性</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="item in tool.inputs">
                             <td>
@@ -45,19 +40,19 @@
                             <td>
                                 <input type="text" ng-model="item.property"/>
                             </td>
-                            <td><button class="btn btn-danger" ng-click="removeInput(item)">Remove</button></td>
+                            <td><button class="btn btn-danger" ng-click="removeInput(item)">删除</button></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="panel panel-primary">
-                <div class="panel-heading">Output<button class="btn btn-success" ng-click="addOutput(tool)">Add</button></div>
+                <div class="panel-heading">输出属性<button class="btn btn-success" ng-click="addOutput(tool)">添加</button></div>
                 <div class="panel-body">
                     <table class="table">
                         <tr>
-                            <th>Output Type</th>
-                            <th>Output Property</th>
-                            <th>Action</th>
+                            <th>输出类型</th>
+                            <th>输出属性</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="item in tool.outputs">
                             <td>
@@ -68,16 +63,16 @@
                             <td>
                                 <input type="text" ng-model="item.property"/>
                             </td>
-                            <td><button class="btn btn-danger" ng-click="removeOutput(item)">Remove</button></td>
+                            <td><button class="btn btn-danger" ng-click="removeOutput(item)">删除</button></td>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="form-group">
-                <label>Description</label>
+                <label>工具描述</label>
                 <textarea kendo-editor k-encoded="false" ng-model="tool.description"></textarea>
             </div>
         </form>
-        <button class="btn btn-primary" ng-click="save(tool)" ng-disabled="form.$invalid">Save Tool</button>
+        <button class="btn btn-primary" ng-click="save(tool)" ng-disabled="form.$invalid">保存</button>
     </div>
 </div>

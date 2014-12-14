@@ -1,24 +1,21 @@
 <div ui-view>
-    <zr-header title="Create Tag"></zr-header>
+    <zr-header title="新建标签"></zr-header>
 
     <div class="row">
-        <div zr-panel col-lg="12" title="Input tag information">
-            <div zr-help="">Tag is a just convenient way to help people find activities.
-                You can make whatever tags with you consideration.
-                For example, you can create tags for different lifecycles: waterfall, scrum, kanban, iteration, etc.</div>
+        <div zr-panel col-lg="12" title="输入标签属性">
             <form name="form" novalidate>
                 <div class="form-group">
-                    <label>Tag name</label>
+                    <label>标签名称</label>
                     <input name="name" type="text" class="form-control" ng-model="tag.name" required>
                     <div class="error" ng-show="form.name.$dirty && form.name.$invalid">
                         <small class="bg-danger">This field is required!</small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Tag description</label>
+                    <label>标签描述</label>
                     <textarea kendo-editor k-encoded="false" ng-model="tag.description" style="height:800px"></textarea>
                 </div>
-                <button class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">Create</button>
+                <button class="btn btn-success" ng-click="create()" ng-disabled="form.$invalid">新建</button>
             </form>
         </div>
     </div>

@@ -28,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
             },
             data: {
-                displayName: 'Feature'
+                displayName: '管理特征'
             }
         })
         .state('feature.create', {
@@ -45,7 +45,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 };
             },
             data: {
-                displayName: 'Create Feature'
+                displayName: '新建特征'
             }
         })
         .state('feature.edit', {
@@ -65,7 +65,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 };
             },
             data: {
-                displayName: 'Edit Feature'
+                displayName: '修改特征'
             }
         });
 });

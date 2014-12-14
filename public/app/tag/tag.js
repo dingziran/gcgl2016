@@ -28,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
             },
             data: {
-                displayName: 'Tag'
+                displayName: '管理标签'
             }
         })
         .state('tag.create', {
@@ -45,7 +45,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 };
             },
             data: {
-                displayName: 'Create Tag'
+                displayName: '新建标签'
             }
         })
         .state('tag.edit', {
@@ -65,7 +65,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
                 };
             },
             data: {
-                displayName: 'Edit Tag'
+                displayName: '修改标签'
             }
         })
         .state('tag.filter', {
