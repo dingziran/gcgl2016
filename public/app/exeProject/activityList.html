@@ -1,17 +1,25 @@
 <div ui-view>
-    <zr-header title="Welcome to the project's main page."></zr-header>
+    <zr-header title="欢迎进入项目，进入相应活动完成项目"></zr-header>
     <div class="row">
-        <div zr-panel="" title="Activities Status" col-lg="12">
+        <div zr-panel="" title="活动列表" col-lg="12">
             <table class="table">
                 <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>Actions</th>
+                    <th>活动名称</th>
+                    <th>最近操作</th>
+                    <th>完成进度</th>
+                    <th>操作</th>
                 </tr>
                 <tr ng-repeat="activity in activityDataList" >
                     <td>{{activity.name}}</td>
-                    <td><button type="button" class="btn btn-success" ui-sref="main.project.activity({activityId:activity.$id})">Enter</button>
+                    <td>{{activity.creationTimeStamp}}</td>
+                    <td>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"  ng-style="calStyle(activity.complete)">
+                                {{calNumber(activity.complete)}}
+                            </div>
+                        </div>
+                    </td>
+                    <td><button type="button" class="btn btn-success" ui-sref="main.project.activity({activityId:activity.$id})">进入</button>
                     </td>
                 </tr>
             </table>

@@ -18,6 +18,15 @@ app.config(function($stateProvider) {
                                   activityData,activityDataListRef,productDataListRef,feature) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
+                $scope.getProductName=function(id){
+                    var product= productDataListRef.$getRecord(id);
+                    if(_.isEmpty(product)){
+                        return "";
+                    }
+                    else{
+                        return product.name
+                    }
+                };
                 $scope.questions=[];
                 if(!_.isEmpty(activityData.questions)){
                     $scope.questions= f.copy(activityData.questions);
@@ -68,7 +77,7 @@ app.config(function($stateProvider) {
                 }
             },
             data: {
-                displayName: 'Feature'
+                displayName: '审查工具'
             }
         });
 });

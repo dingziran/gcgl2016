@@ -18,6 +18,15 @@ app.config(function($stateProvider) {
                                   activityData,feature,activityDataListRef,productDataListRef) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
+                $scope.getProductName=function(id){
+                    var product= productDataListRef.$getRecord(id);
+                    if(_.isEmpty(product)){
+                        return "";
+                    }
+                    else{
+                        return product.name
+                    }
+                };
                 $scope.requirements=[];
                 if(!_.isEmpty(activityData.requirements)){
                     $scope.requirements= f.copy(activityData.requirements);
@@ -112,7 +121,7 @@ app.config(function($stateProvider) {
                 }
             },
             data: {
-                displayName: 'Edit'
+                displayName: '需求收集工具'
             }
         });
 });

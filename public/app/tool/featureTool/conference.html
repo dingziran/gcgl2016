@@ -1,16 +1,39 @@
 <div class="row">
     <div class="col-lg-12">
-        <button class="btn btn-default" ng-click="showActivity=!showActivity">Show/Hide Activity Description</button>
-        <button class="btn btn-default" ng-click="showFeature=!showFeature">Show/Hide Feature Description</button>
-        <div class="well" ng-show="showActivity">
-            <h1>{{activityData.name}}</h1>
-            <h3>活动描述:</h3>
+        <button class="btn btn-default" ng-click="showActivity=!showActivity">显示/隐藏活动定义</button>
+        <div class="well" ng-hide="showActivity">
+            <h3>活动名称: {{activityData.name}}</h3>
+            <h4>活动描述:</h4>
             <div ng-bind-html="activityData.description"></div>
         </div>
-        <div class="well" ng-show="showFeature">
-            <h2>{{feature.name}}</h2>
+        <div class="well" ng-hide="showActivity">
+            <h3>特征名称: {{feature.name}}</h3>
             <h4>特征描述:</h4>
             <div ng-bind-html="feature.description"></div>
+        </div>
+        <div class="well" ng-hide="showActivity">
+            <h3>工具名称: {{feature.tool.name}}</h3>
+            <h4>工具描述:</h4>
+            <div ng-bind-html="feature.tool.description"></div>
+
+            <h4>输入输出:</h4>
+            <table class="table">
+                <tr>
+                    <th>输入/输出</th>
+                    <th>对应工作产品</th>
+                    <th>对应属性</th>
+                </tr>
+                <tr ng-repeat="input in feature.tool.inputs">
+                    <td>输入</td>
+                    <td>{{getProductName(input.product)}}</td>
+                    <td>{{input.property}}</td>
+                </tr>
+                <tr ng-repeat="output in feature.tool.outputs">
+                    <td>输出</td>
+                    <td>{{getProductName(output.product)}}</td>
+                    <td>{{output.property}}</td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

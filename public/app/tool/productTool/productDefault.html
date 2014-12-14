@@ -1,9 +1,15 @@
 <div class="row">
     <div class="col-lg-12">
-        <div class="well">
-            <h1>{{productData.name}}</h1>
-            <h3>产品描述:</h3>
+        <button class="btn btn-default" ng-click="showProduct=!showProduct">显示/隐藏工作产品定义</button>
+        <div class="well" ng-hide="showProduct">
+            <h3>产品名称: {{productData.name}}</h3>
+            <h4>产品描述:</h4>
             <div ng-bind-html="productData.description"></div>
+        </div>
+        <div class="well" ng-hide="showProduct">
+            <h3>工具名称: {{feature.tool.name}}</h3>
+            <h4>工具描述:</h4>
+            <div ng-bind-html="productData.tool.description"></div>
         </div>
     </div>
 </div>

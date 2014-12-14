@@ -18,6 +18,15 @@ app.config(function($stateProvider) {
                                   activityData,feature,activityDataListRef,productDataListRef,project) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
+                $scope.getProductName=function(id){
+                    var product= productDataListRef.$getRecord(id);
+                    if(_.isEmpty(product)){
+                        return "";
+                    }
+                    else{
+                        return product.name
+                    }
+                };
                 $scope.save=function(){
                     activityDataListRef.$save(_.extend(activityData,$scope.activityData)).then(function(){
                         $state.transitionTo($state.current, $stateParams, {
@@ -172,7 +181,7 @@ app.config(function($stateProvider) {
                 }
             },
             data: {
-                displayName: 'Feature'
+                displayName: 'cocom估算工具'
             }
         });
 });

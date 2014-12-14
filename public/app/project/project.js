@@ -35,7 +35,7 @@ app.config(function($stateProvider, $urlRouterProvider){
 
             },
             data: {
-                displayName: 'Project'
+                displayName: '项目列表'
             }
         })
         .state('project.create', {
@@ -51,7 +51,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Create Project'
+                displayName: '新建项目'
             }
         })
         .state('project.selectProcess',{
@@ -84,7 +84,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 $scope.project=project;
             },
             data: {
-                displayName: 'Process Selecting and Tailoring'
+                displayName: '过程选择和裁剪'
             }
         })
         .state('project.selectProcess.chooseActivity', {
@@ -138,7 +138,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Select Activity'
+                displayName: '选择活动'
             }
         })
         .state('project.selectProcess.selectedActivity', {
@@ -150,7 +150,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 $scope.activityDataList= f.copy(activityDataListRef);
             },
             data: {
-                displayName: 'Selected Activities'
+                displayName: '已选活动'
             }
         })
         .state('project.selectProcess.selectedActivity.selectProduct', {
@@ -298,7 +298,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Select Inputs and Outputs'
+                displayName: '选择输入输出'
             }
         })
         .state('project.selectProcess.selectedActivity.selectFeature', {
@@ -350,7 +350,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 }
             },
             data: {
-                displayName: 'Select Feature'
+                displayName: '选择特征'
             }
         })
         .state('project.selectProcess.selectedActivity.selectFeature.selectTool', {
@@ -527,7 +527,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Select Feature Tool'
+                displayName: '选择特征工具'
             }
         })
         .state('project.selectProcess.selectedProduct', {
@@ -556,7 +556,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 }
             },
             data: {
-                displayName: 'Selected Product'
+                displayName: '已选工作产品'
             }
         })
         .state('project.selectProcess.selectedProduct.selectTool', {
@@ -609,7 +609,7 @@ app.config(function($stateProvider, $urlRouterProvider){
                 };
             },
             data: {
-                displayName: 'Select Product Tool'
+                displayName: '选择工作产品工具'
             }
         })
         .state('project.edit', {

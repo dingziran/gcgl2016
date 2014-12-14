@@ -1,17 +1,17 @@
-<zr-header title="Create Project"></zr-header>
+<zr-header title="新建项目"></zr-header>
 
 <div class="row">
-    <div zr-panel="" title="Input your project information" col-lg="6">
+    <div zr-panel="" title="输入项目属性" col-lg="6">
         <form>
             <div class="form-group">
-                <label>Project Name</label>
+                <label>项目名称</label>
                 <input type="text" class="form-control" ng-model="project.name">
             </div>
             <div class="form-group">
-                <label>Project Description</label>
+                <label>项目描述</label>
                 <textarea class="form-control" rows="3" ng-model="project.description"></textarea>
             </div>
-            <button class="btn btn-success" ng-click="create(project)">Create</button>
+            <button class="btn btn-success" ng-click="create(project)">新建</button>
         </form>
     </div>
 </div>

@@ -15,12 +15,21 @@ app.config(function($stateProvider) {
                 }
             },
             controller: function ($scope,$stateParams,f,
-                                  activityData,feature) {
+                                  activityData,productDataListRef,feature) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
+                $scope.getProductName=function(id){
+                    var product= productDataListRef.$getRecord(id);
+                    if(_.isEmpty(product)){
+                        return "";
+                    }
+                    else{
+                        return product.name
+                    }
+                };
             },
             data: {
-                displayName: 'Feature'
+                displayName: '默认特征工具'
             }
         });
 });

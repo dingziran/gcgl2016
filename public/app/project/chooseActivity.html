@@ -3,38 +3,38 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Selected Activity <button class="btn btn-default" ng-click="saveActivity()">Save</button>
+                选择活动 <button class="btn btn-default" ng-click="saveActivity()">保存</button>
             </div>
             <div class="panel-body">
                 <div class="row">
                     <div class="col-lg-6">
-                        <div zr-panel title="Selected Activities">
+                        <div zr-panel title="已选活动">
                             <table class="table">
                                 <tr>
-                                    <th>Activity Name</th>
-                                    <th>Activity Tag</th>
-                                    <th>Action</th>
+                                    <th>活动名称</th>
+                                    <th>活动标签</th>
+                                    <th>操作</th>
                                 </tr>
                                 <tr ng-repeat="item in activityDataList">
                                     <td>{{item.name}}</td>
                                     <td>{{item.tags}}</td>
-                                    <td><button class="btn btn-danger" ng-click="unselectActivity(item)">Unselect</button></td>
+                                    <td><button class="btn btn-danger" ng-click="unselectActivity(item)">取消选择</button></td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                     <div class="col-lg-6">
-                        <div zr-panel title="Activities in Organization Process Asset">
+                        <div zr-panel title="为选择活动">
                             <table class="table">
                                 <tr>
-                                    <th>Activity Name</th>
-                                    <th>Activity Tag</th>
-                                    <th>Action</th>
+                                    <th>活动名称</th>
+                                    <th>活动标签</th>
+                                    <th>操作</th>
                                 </tr>
                                 <tr ng-repeat="item in activityList" ng-hide="item.select">
                                     <td>{{item.name}}</td>
                                     <td>{{item.tags}}</td>
-                                    <td><button class="btn btn-success" ng-click="selectActivity(item)">Select</button></td>
+                                    <td><button class="btn btn-success" ng-click="selectActivity(item)">选择</button></td>
                                 </tr>
                             </table>
                         </div>

@@ -1,5 +1,5 @@
 <div ui-view>
-    <zr-header title="Project Management"></zr-header>
+    <zr-header title="项目列表"></zr-header>
     <div class="row">
         <!--<div zr-panel="" title="Operation" col-lg="2">
             <p><button type="button" class="btn btn-primary btn-block" ui-sref="project.create">Create Project</button></p>
@@ -7,16 +7,16 @@
         <div class="col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    Project List <button class="btn btn-success" ui-sref="project.create">Create Project</button>
+                    项目列表 <button class="btn btn-success" ui-sref="project.create">新建项目</button>
                 </div>
                 <div panel-body>
                     <table class="table">
                         <tr>
-                            <th>Project Name</th>
-                            <th>Creation Time</th>
-                            <th>Selected Activities</th>
-                            <th>Selected Products</th>
-                            <th>Actions</th>
+                            <th>项目名称</th>
+                            <th>创建时间</th>
+                            <th>已选活动数量</th>
+                            <th>已选工作产品数量</th>
+                            <th>操作</th>
                         </tr>
                         <tr ng-repeat="project in projectList">
                             <td>{{project.name}}</td>
@@ -25,13 +25,13 @@
                             <td>{{sizeOfKeys(project.productData)}}</td>
                             <td>
                                 <button type="button" class="btn btn-info btn-xs" ng-click="selectProcess(project)">
-                                    <span class="glyphicon glyphicon-list-alt"></span> Select Process
+                                    <span class="glyphicon glyphicon-list-alt"></span> 过程选择和裁剪
                                 </button>
                                 <!--<button type="button" class="btn btn-warning btn-xs" ui-sref="project.edit({id:key})">-->
                                     <!--<span class="glyphicon glyphicon-edit"></span> Edit-->
                                 <!--</button>-->
                                 <button type="button" class="btn btn-danger btn-xs" ng-click="remove(project)">
-                                    <span class="glyphicon glyphicon-trash"></span> Del
+                                    <span class="glyphicon glyphicon-trash"></span> 删除
                                 </button>
                             </td>
                             <!--<td><pre>{{project|json}}</pre></td>-->

@@ -3,36 +3,36 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Activity's features
+                活动特征列表
             </div>
             <div class="panel-body">
-                <h3>Unselect Features</h3>
+                <h3>未选特征</h3>
                 <table class="table">
                     <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Action</th>
+                        <th>特征名称</th>
+                        <th>特征描述</th>
+                        <th>操作</th>
                     </tr>
                     <tr ng-repeat="item in unSelectFeatures">
                         <td>{{item.name}}</td>
                         <td><div ng-bind-html="item.description"></div></td>
                         <td>
-                            <button class="btn btn-success" ng-click="select(item)">Select</button>
+                            <button class="btn btn-success" ng-click="select(item)">选择</button>
                         </td>
                     </tr>
                 </table>
-                <h3>Selected Features <button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectFeature.selectTool">Select Tools</button></h3>
+                <h3>已选特征 <button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectFeature.selectTool">选择特征工具</button></h3>
                 <table class="table">
                     <tr>
-                        <th>Name</th>
-                        <th>Description</th>
+                        <th>特征名称</th>
+                        <th>特征描述</th>
                         <th></th>
                     </tr>
                     <tr ng-repeat="item in activityData.features">
                         <td>{{item.name}}</td>
                         <td><div ng-bind-html="item.description"></div></td>
                         <td>
-                            <button class="btn btn-success" ng-click="unselect(item)">Unselect</button>
+                            <button class="btn btn-success" ng-click="unselect(item)">取消选择</button>
                         </td>
                     </tr>
                 </table>

@@ -2,21 +2,21 @@
     <div class="col-lg-12">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Product Tools
+                工作产品列表
             </div>
             <div class="panel-body">
                 <table class="table" >
                     <tr>
-                        <th>Product Name</th>
-                        <th>Product Type</th>
-                        <th>Product Tool</th>
-                        <th>Action</th>
+                        <th>工作产品名称</th>
+                        <th>工作产品类型</th>
+                        <th>已选工作产品工具</th>
+                        <th>操作</th>
                     </tr>
                     <tr ng-repeat="product in productDataList">
                         <td>{{product.name}}</td>
                         <td>{{product.type}}</td>
                         <td>{{product.tool.name}}</td>
-                        <td><button class="btn btn-primary" ng-click="selectTool(product)">Select Tool</button></td>
+                        <td><button class="btn btn-primary" ng-click="selectTool(product)">选择工具</button></td>
                     </tr>
                 </table>
             </div>

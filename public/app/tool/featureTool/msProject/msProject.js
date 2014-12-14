@@ -18,6 +18,15 @@ app.config(function($stateProvider) {
                                   activityData,feature,productDataListRef) {
                 $scope.activityData= f.copy(activityData);
                 $scope.feature= f.copy(feature);
+                $scope.getProductName=function(id){
+                    var product= productDataListRef.$getRecord(id);
+                    if(_.isEmpty(product)){
+                        return "";
+                    }
+                    else{
+                        return product.name
+                    }
+                };
                 $scope.download= function(){
                     //get all inputs
                     var allInput=$scope.feature.tool.inputs||[];
@@ -80,7 +89,7 @@ app.config(function($stateProvider) {
 
             },
             data: {
-                displayName: 'Feature'
+                displayName: 'MsProject工具'
             }
         });
 });

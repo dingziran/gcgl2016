@@ -2,19 +2,19 @@
     <div class="col-lg-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Activity's Inputs
+                活动输入工作产品
             </div>
             <div class="panel-body">
                 <table class="table">
                     <tr>
-                        <th>Name</th>
-                        <th>Action</th>
+                        <th>名称</th>
+                        <th>操作</th>
                     </tr>
                     <tr ng-repeat="item in inputs">
                         <td>{{item.name}}</td>
                         <td>
-                            <button class="btn btn-success" ng-click="selectInput(item)" ng-hide="item.select">Select</button>
-                            <button class="btn btn-danger" ng-click="unselectInput(item)" ng-show="item.select">Unselect</button>
+                            <button class="btn btn-success" ng-click="selectInput(item)" ng-hide="item.select">选择</button>
+                            <button class="btn btn-danger" ng-click="unselectInput(item)" ng-show="item.select">取消选择</button>
                         </td>
                     </tr>
                 </table>
@@ -24,19 +24,19 @@
     <div class="col-lg-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Activity's Outputs
+                活动输出工作产品
             </div>
             <div class="panel-body">
                 <table class="table">
                     <tr>
-                        <th>Name</th>
-                        <th>Action</th>
+                        <th>名称</th>
+                        <th>操作</th>
                     </tr>
                     <tr ng-repeat="item in outputs">
                         <td>{{item.name}}</td>
                         <td>
-                            <button class="btn btn-success" ng-click="selectOutput(item)" ng-hide="item.select">Select</button>
-                            <button class="btn btn-danger" ng-click="unselectOutput(item)" ng-show="item.select">Unselect</button>
+                            <button class="btn btn-success" ng-click="selectOutput(item)" ng-hide="item.select">选择</button>
+                            <button class="btn btn-danger" ng-click="unselectOutput(item)" ng-show="item.select">取消选择</button>
                         </td>
                     </tr>
                 </table>

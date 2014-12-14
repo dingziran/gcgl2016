@@ -13,7 +13,7 @@ app.config(function($stateProvider){
                 $scope.projectList= f.copy(projectListRef);
             },
             data: {
-                displayName: 'Home'
+                displayName: '首页'
             }
         })
         .state('main.project',{
@@ -33,9 +33,31 @@ app.config(function($stateProvider){
             },
             controller:function($scope,$state,$stateParams,f,activityDataListRef){
                 $scope.activityDataList= f.copy(activityDataListRef);
+                $scope.calStyle=function(number){
+                    if(!number||number<0){
+                        return {width:'0%'};
+                    }
+                    else if(number>100){
+                        return {width:'100%'};
+                    }
+                    else{
+                        return {width:number+'%'};
+                    }
+                };
+                $scope.calNumber=function(number){
+                    if(!number||number<0){
+                        return '0%';
+                    }
+                    else if(number>100){
+                        return '100%';
+                    }
+                    else{
+                        return ''+number+"%";
+                    }
+                }
             },
             data: {
-                displayName: 'Project'
+                displayName: '项目主界面'
             }
         })
         .state('main.project.activity',{
@@ -53,7 +75,7 @@ app.config(function($stateProvider){
                 $scope.activityData.outputs= f.extend($scope.activityData.outputs,productDataListRef);
             },
             data: {
-                displayName: 'Activity'
+                displayName: '活动主界面'
             }
         });
 });

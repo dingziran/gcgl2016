@@ -2,28 +2,28 @@
     <div class="col-lg-12">
         <div class="panel panel-primary" ng-repeat="feature in activityData.features">
             <div class="panel-heading">
-                Activity's features <button class="btn btn-success" ng-click="selectTool(feature)">Select Tool</button>
+                选择特征工具  <button class="btn btn-success" ng-click="selectTool(feature)">选择工具</button>
             </div>
             <div class="panel-body">
-                <h3>Tool: {{feature.tool.name}}</h3>
+                <h3>已选工具: {{feature.tool.name}}</h3>
                 <table class="table" >
                     <tr>
-                        <th>Property Name</th>
-                        <th>Property Type</th>
-                        <th>Relate product</th>
-                        <th>Action</th>
+                        <th>属性名称</th>
+                        <th>属性列表</th>
+                        <th>对应工作产品</th>
+                        <th>操作</th>
                     </tr>
                     <tr ng-repeat="item in feature.tool.inputs">
                         <td>{{item.property}}</td>
                         <td>Input: {{item.type}}</td>
                         <td>{{item.product.name}}</td>
-                        <td><button class="btn btn-primary" ng-click="selectInputProduct(feature,item)">Select Product</button></td>
+                        <td><button class="btn btn-primary" ng-click="selectInputProduct(feature,item)">选择工作产品</button></td>
                     </tr>
                     <tr ng-repeat="item in feature.tool.outputs">
                         <td>{{item.property}}</td>
                         <td>Output: {{item.type}}</td>
                         <td>{{item.product.name}}</td>
-                        <td><button class="btn btn-primary" ng-click="selectOutputProduct(feature,item)">Select Product</button></td>
+                        <td><button class="btn btn-primary" ng-click="selectOutputProduct(feature,item)">选择工作产品</button></td>
                     </tr>
                 </table>
             </div>

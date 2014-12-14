@@ -2,17 +2,17 @@
     <div class="col-lg-12" ui-view>
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Selected Activities
+                已选活动
             </div>
             <div class="panel-body">
                 <table class="table">
                     <tr>
-                        <th>Activity Name</th>
-                        <th>Creation Time</th>
-                        <th>Inputs</th>
-                        <th>Outputs</th>
-                        <th>Features</th>
-                        <th>Action</th>
+                        <th>活动名称</th>
+                        <th>选择时间</th>
+                        <th>已选输入</th>
+                        <th>已选输出</th>
+                        <th>已选特征</th>
+                        <th>操作</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -22,8 +22,8 @@
                         <td>{{item.inputs.length}}</td>
                         <td>{{item.outputs.length}}</td>
                         <td>{{item.features.length}}</td>
-                        <td><button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectProduct({activityDataId:item.$id})">Select Inputs/Outputs</button></td>
-                        <td><button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectFeature({activityDataId:item.$id})">Select Features</button></td>
+                        <td><button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectProduct({activityDataId:item.$id})">选择输入/输出</button></td>
+                        <td><button class="btn btn-primary" ui-sref="project.selectProcess.selectedActivity.selectFeature({activityDataId:item.$id})">选择特征</button></td>
                     </tr>
                 </table>
             </div>

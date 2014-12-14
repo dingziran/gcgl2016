@@ -30,6 +30,15 @@ app.config(function($stateProvider) {
 //                        });
 //                    }
 //                }
+                $scope.getProductName=function(id){
+                    var product= productDataListRef.$getRecord(id);
+                    if(_.isEmpty(product)){
+                        return "";
+                    }
+                    else{
+                        return product.name
+                    }
+                };
                 $scope.data=[];
                 if($scope.activityData.simpleDivide){
                     $scope.data=$scope.activityData.simpleDivide;
@@ -105,6 +114,9 @@ app.config(function($stateProvider) {
                     });
 
                 };
+            },
+            data: {
+                displayName: '分解工具'
             }
         });
 });
