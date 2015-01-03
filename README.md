@@ -37,9 +37,11 @@ kendoui, ng-bootstrap，nvd3等库是为了界面美观
 ##下一步工作
 ###架构问题
 * 使用Meteor代替nodejs和firebase
+
 ###部署问题
 * 使用grunt进行自动化部署
 * 使用Karma进行测试
+
 ###功能问题
 * 集成更多项目管理子工具
 * 增加用户管理
